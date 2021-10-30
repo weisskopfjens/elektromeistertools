@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>Funktion plotten</title>
+    <script src="assets/tools.js"></script>
+    <script src="assets/math.min.js"></script>
+    <script src="assets/plotly/plotly.min.js"></script>
+    <link href="assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <form id="form">
+        <label class="form-label" for="rangefrom">Von:</label>
+        <input type="number" class="form-control" id="rangefrom" value="-10" />
+
+        <label class="form-label" for="rangeto">Bis:</label>
+        <input type="number" class="form-control" id="rangeto" value="10" />
+
+        <label class="form-label" for="increment">Inkrement:</label>
+        <input type="number" class="form-control" id="increment" value="0.1" />
+
+        <label class="form-label" for="eq">Gleichung:</label>
+        <input type="text" class="form-control" id="eq" value="4 * sin(x) + 5 * cos(x/2)" />
+        <input type="submit" class="btn btn-primary mb-3" value="Funktion zeichnen" />
+    </form>
+
+    <div id="plot"></div>
+    <div id="valueseries"></div>
+
+    <script>
+
+        function draw() {
+            const rangefrom = document.getElementById('rangefrom').value
+		    const rangeto = document.getElementById('rangeto').value
+		    const increment = document.getElementById('increment').value
+            const valueseries = document.getElementById('valueseries')
+            try {
+                // compile the expression once
+                const expression = document.getElementById('eq').value
+                const expr = math.compile(expression)
+
+                // evaluate the expression repeatedly for different values of x
+                const xValues = math.range(rangefrom, rangeto, increment).toArray()
+                const yValues = xValues.map(function (x) {
+                    return expr.evaluate({
+                        x: x
+                    })
+                })
+
+                console.log(valueSeries(xValues,yValues))
+                valueseries.innerHTML=valueSeries(xValues,yValues);
+
+                // render the plot using plotly
+                const trace1 = {
+                    x: xValues,
+                    y: yValues,
+                    type: 'scatter'
+                }
+                const data = [trace1]
+                Plotly.newPlot('plot', data)
+            } catch (err) {
+                console.error(err)
+                alert(err)
+            }
+        }
+
+        document.getElementById('form').onsubmit = function (event) {
+            event.preventDefault()
+            draw()
+        }
+
+        draw()
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<meta charset="utf-8">
+	<title>Formeln berechnen</title>
+
+	<script src="assets/math.min.js"></script>
+	<script src="assets/mathjax/tex-svg.js"></script>
+	<link href="assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+	<script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+
+	<h1>
+		Formel berechnen
+	</h1>
+
+	<table class="table table-primary">
+		<tr>
+			<th>Ausdruck</th>
+			<td><input type="text" class="form-control" id="expr" /></td>
+		</tr>
+		<tr>
+			<th>Formeldarstellung</th>
+			<td>
+				<div id="pretty"></div>
+			</td>
+		</tr>
+		<tr>
+			<th>Vereinfachung</th>
+			<td>
+				<div id="simplify"></div>
+			</td>
+		</tr>
+		<tr>
+			<th>Ergebnis</th>
+			<td>
+				<div id="result"></div>
+			</td>
+		</tr>
+	</table>
+	<b>Klammern optionen:</b>
+	<div class="form-check">
+		<input type="radio" class="form-check-input" name="parenthesis" value="keep"
+			onclick="parenthesis = 'keep'; expr.oninput();" checked>erhalten
+	</div>
+	<div class="form-check">
+		<input type="radio" class="form-check-input" name="parenthesis" value="auto"
+			onclick="parenthesis = 'auto'; expr.oninput();">auto
+	</div>
+	<div class="form-check">
+		<input type="radio" class="form-check-input" name="parenthesis" value="all"
+			onclick="parenthesis = 'all'; expr.oninput();">alle
+	</div>
+
+	<b>Implizite Multiplikation:</b>
+	<div class="form-check">
+		<input type="radio" class="form-check-input" name="implicit" value="hide"
+			onclick="implicit = 'hide'; expr.oninput();" checked>verbergen
+	</div>
+	<div class="form-check">
+		<input type="radio" class="form-check-input" name="implicit" value="show"
+			onclick="implicit = 'show'; expr.oninput();">zeigen
+	</div>
+
+	<script>
+		const expr = document.getElementById('expr')
+		const pretty = document.getElementById('pretty')
+		const result = document.getElementById('result')
+		const simplify = document.getElementById('simplify')
+		let parenthesis = 'keep'
+		let implicit = 'hide'
+
+		const mj = function (tex) {
+			return MathJax.tex2svg(tex, {
+				em: 16,
+				ex: 6,
+				display: false
+			});
+		}
+
+		// initialize with an example expression
+		expr.value = 'R=1000ohm;I=16A;R*I'
+		
+		pretty.innerHTML = '';
+		pretty.appendChild(mj(math.parse(expr.value).toTex({
+			parenthesis: parenthesis
+		})));
+		result.innerHTML = math.format(math.evaluate(expr.value))
+
+		expr.oninput = function () {
+			let node = null
+
+			try {
+				// parse the expression
+				simplify.innerHTML = math.simplify(expr.value)
+			} catch (err) {
+				simplify.innerHTML = '<span>Keine Vereinfachung gefunden</span>'
+			}
+
+			try {
+				// parse the expression
+				node = math.parse(expr.value)
+				// evaluate the result of the expression
+				result.innerHTML = math.format(node.compile().evaluate())
+			} catch (err) {
+				result.innerHTML = '<span style="color: red;">' + err.toString() + '</span>'
+			}
+
+			try {
+				// export the expression to LaTeX
+				const latex = node ? node.toTex({
+					parenthesis: parenthesis,
+					implicit: implicit
+				}) : ''
+				//console.log('LaTeX expression:', latex)
+				// display and re-render the expression
+				MathJax.typesetClear();
+				pretty.innerHTML = '';
+				pretty.appendChild(mj(latex));
+			} catch (err) {}
+		}
+	</script>
+
+</body>
+
+</html>

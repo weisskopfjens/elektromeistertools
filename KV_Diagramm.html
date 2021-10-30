@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>Elektrotechnik</title>
+
+    <script src="assets/math.min.js"></script>
+    <script src="assets/mathjax/tex-svg.js"></script>
+    <link href="assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="assets/tools.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>
+            Karnaugh-Veitch-Diagramm
+        </h1>
+            <div class="row">
+                <div class="col-6">
+                    <label for="vars">Anzahl der Variablen:</label>
+                    <select id="vars" name="vars" class="form-control" onchange="draw();">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4" selected>4</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div id="truthtable"></div>
+                </div>
+                <div class="col">
+                    <div id="kvtable"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="result" class="p-3 border bg-light"></div>
+            </div>
+    </div>
+
+    <script>
+    //
+    // ∧, && = And
+    // ∨, || = Or
+    // ¬, !  = Not
+    //
+
+    draw();
+
+    function draw() {
+        truthtable=document.getElementById("truthtable");
+        kvtable=document.getElementById("kvtable");
+        v=parseInt(document.getElementById("vars").value);
+        //console.log(v);
+        kvtable.innerHTML="";
+        truthtable.innerHTML="";
+        generateTruthtable(truthtable,v);
+        generateKVTable(kvtable,v,truthtable);
+    }
+
+    function updateKVTable() {
+        kvtable=document.getElementById("kvtable");
+        v=parseInt(document.getElementById("vars").value);
+        kvtable.innerHTML="";
+        generateKVTable(kvtable,v,truthtable);
+    }
+ 
+    function generateTruthtable(element,vars) {
+        table = document.createElement("table");
+        table.classList.add("table");
+        table.classList.add("table-bordered");
+        tableheader = document.createElement("thead");
+        tablebody = document.createElement("tbody");
+        tableheaderrow = document.createElement("tr");
+        for(column=0;column<vars+1;column++) {
+            tableheaderrowcell = document.createElement("th");
+            if(column<vars) {
+                input = document.createElement("input");
+                input.setAttribute("type","text");
+                input.setAttribute("value",String.fromCharCode(65+column));
+                input.classList.add("form-control");
+                input.onchange = function() {updateKVTable();};
+                tableheaderrowcell.appendChild(input);
+            } else {
+                input = document.createElement("input");
+                input.setAttribute("type","text");
+                input.setAttribute("value","X");
+                input.classList.add("form-control");
+                input.readOnly = true; 
+                tableheaderrowcell.appendChild(input);
+            }
+            tableheaderrow.appendChild(tableheaderrowcell);
+        }
+        tableheader.appendChild(tableheaderrow);
+        table.appendChild(tableheader);
+        for(row=0;row<Math.pow(2,vars);row++) {
+            tablerow = document.createElement("tr");
+            binstr = dec2bin(row,vars);
+            for(column=0;column<vars+1;column++) {
+                tablecell = document.createElement("td");
+                if(column<vars) {
+                    tablecell.innerHTML=binstr[column];
+                } else {
+                    tablecell.innerHTML="0";
+                    tablecell.onclick = function() {changeTableValue(this);};
+                }
+                tablerow.appendChild(tablecell);
+            }
+            tablebody.appendChild(tablerow);
+        }
+        table.appendChild(tablebody);
+        element.appendChild(table);
+    }
+
+    function dec2bin(dec,vars) {
+        binstr = (dec >>> 0).toString(2);
+        f=vars-binstr.length
+        for(i=0;i<f;i++) {
+            binstr="0"+binstr;
+        } 
+        return binstr;
+    }
+
+    function changeTableValue(src) {
+        if(src.innerHTML==""||src.innerHTML=="0") {
+            src.innerHTML = "1";
+        } else {
+            src.innerHTML = "0";
+        }
+        updateKVTable();
+    }
+
+    function getVarNameFromTruthTable(element, varnr) {
+        v = element.getElementsByTagName('input');
+        return v[varnr].value;
+    }
+
+    function NumToVarname(truthtable, varstring) {
+        output="";
+        for (var i = 0; i < varstring.length; i++) {
+            if(varstring[i]=="¬") {
+                output+=varstring[i];
+            } else {
+                output+=getVarNameFromTruthTable(truthtable,varstring[i]);
+            }
+        }
+        return output;
+    }
+
+    function compareTerm(term1,term2) {
+        t="";
+        for(i=0;i<term1.length;i++) {
+            if(term1[i]=="¬") {
+                t=term1[i];
+            } else {
+                t+=term1[i];
+                if(term2.search(t)!=-1) {
+                    if(t.length==1) {
+                        if(term2.search("¬"+t)!=-1) {
+                            return 0;
+                        }
+                    }
+                } else {
+                    return 0;
+                }
+                t="";
+            }
+        }
+        return 1;
+    }
+
+    function checkTerm(truthtable,term,vars) {
+        rows = truthtable.getElementsByTagName('tr');
+        for (let row of rows) {
+            cells=row.getElementsByTagName('td');
+            if(cells==undefined) {
+                continue;
+            }
+            truthtableterm="";
+            celli=0;
+            for (let cell of cells) {
+                if(celli>=vars) {
+                    continue;
+                }
+                cellvalue=cell.innerHTML;
+                if(celli<vars&&cellvalue=="1") {
+                    truthtableterm+=getVarNameFromTruthTable(truthtable,celli);
+                } else {
+                    truthtableterm+="¬"+getVarNameFromTruthTable(truthtable,celli);
+                }
+                celli++;
+            }
+            if(cells[vars]===undefined) {
+                continue;
+            }
+            if(compareTerm(truthtableterm,term)&&cells[vars].innerHTML=="1") {
+                //console.log(truthtableterm,term);
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    // Für 2,3,4 Variablen
+    function generateKVTable(element,vars,truthtable) {
+        let kvtableparameters={
+            2:{
+                "v":["¬0","0","¬1","1"],
+                "xs":3,
+                "ys":3
+            },
+            3:{
+                "v":["¬0¬2","0¬2","02","¬02","¬1","1"],
+                "xs":5,
+                "ys":3
+            },
+            4:{
+                "v":["¬0¬2","0¬2","02","¬02","¬1¬3","1¬3","13","¬13"],
+                "xs":5,
+                "ys":5
+            }
+        }
+
+        table = document.createElement("table");
+        table.classList.add("table");
+        table.classList.add("table-bordered");
+        tablebody = document.createElement("tbody");
+        tableheaderrow = document.createElement("tr");
+        vari=0;
+        for(y=0;y<kvtableparameters[vars]["ys"];y++) {
+            tablerow = document.createElement("tr");
+            for(x=0;x<kvtableparameters[vars]["xs"];x++) {
+                tablecell = document.createElement("td");
+                tablecell.classList.add("col-md-1");
+                if (y==0 &&  x>0) {
+                    tablecell.innerHTML=NumToVarname(truthtable, kvtableparameters[vars]["v"][vari]);
+                    vari++;
+                } else if (y>0 && x==0) {
+                    tablecell.innerHTML=NumToVarname(truthtable, kvtableparameters[vars]["v"][vari]);
+                    vari++;
+                } else if (x>0 && y>0) {
+                    term=NumToVarname(truthtable, kvtableparameters[vars]["v"][x-1]);
+                    term+=NumToVarname(truthtable, kvtableparameters[vars]["v"][(kvtableparameters[vars]["xs"]-1)+(y-1)]);
+                    tablecell.innerHTML=String(checkTerm(truthtable,term,vars));
+                }
+                tablerow.appendChild(tablecell);
+            }
+            tablebody.appendChild(tablerow);
+        }
+        table.appendChild(tablebody);
+        element.appendChild(table);
+    }
+
+    </script>
+
+</body>

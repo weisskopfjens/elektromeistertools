@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>Elektrotechnik</title>
+
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet">
+    <script src="assets/jquery/jquery.js"></script>
+    <script src="assets/math.min.js"></script>
+    <script src="assets/mathjax/tex-svg.js"></script>
+    <link href="assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
+    <link href="assets/bootstrap_table/bootstrap-table.css" rel="stylesheet">
+    <script src="assets/bootstrap_table/bootstrap-table.js"></script>
+    <script src="assets/tools.js"></script>
+    <script src="assets/formulartools.js"></script>
+    <script src="assets/tabellen.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>
+            Elektrotechnik
+        </h1>
+        <div id="inputarea">
+           
+        </div>
+        <div id="pretty"></div>
+        <div id="result" class="p-3 border bg-light"></div>
+    </div>
+
+    <script>
+        //delete math.Unit.UNITS.g
+        var calcScope = {}
+
+        let formulas = {
+            "Ohmisches Gesetz": {
+                "U": {
+                    "expression": ["I*R", "P/I", "sqrt(P*R)"],
+                    "description": "Spannung",
+                    "unit": "V"
+                },
+                "I": {
+                    "expression": ["U/R", "sqrt(P/R)", "P/U", "J*A"],
+                    "description": "Strom",
+                    "unit": "A"
+                },
+                "R": {
+                    "expression": ["U/I", "P/I^2", "U^2/P", "ρ*l/A", "l/γ*A", "1/G"],
+                    "description": "Wirk-Widerstand",
+                    "unit": "Ω"
+                },
+                "P": {
+                    "expression": ["U*I", "I^2*R", "U^2/R"],
+                    "description": "Wirk-Leistung",
+                    "unit": "W"
+                }
+            },
+            "Leitwert": {
+                "G": {
+                    "expression": ["1/R"],
+                    "description": "Wirk-Leitwert",
+                    "unit": "S"
+                }
+            },
+            "Leiterwiderstand": {
+                "γ": {
+                    "expression": ["1/ρ"],
+                    "description": "elektrische Leitfähigkeit",
+                    "unit": "m/Ω*mm²"
+                },
+                "ρ": {
+                    "expression": ["1/γ"],
+                    "description": "spezifischer Widerstand",
+                    "unit": "Ω・mm²/m",
+                    "table": werkstoffe,
+                    "tablecolumn1": "Werkstoff",
+                    "tablecolumn2": "Spezifischer_Widerstand"
+                },
+                "A": {
+                    "expression": ["ρ*l/R", "l/γ*R", "I/J"],
+                    "description": "Fläche",
+                    "unit": "mm²"
+                },
+                "l": {
+                    "expression": ["R*A/ρ", "A*γ*R"],
+                    "description": "Länge",
+                    "unit": "m"
+                }
+            },
+            "Widerstand und Temperatur": {
+                "α": {
+                    "expression": ["ΔR/Rkalt*Δϑ"],
+                    "description": "Temperaturkoeffizient/Temperaturbeiwert",
+                    "unit": "1/K",
+                    "table": werkstoffe,
+                    "tablecolumn1": "Werkstoff",
+                    "tablecolumn2": "Temperaturkoeffizient"
+                },
+                "Rϑ": {
+                    "expression": ["Rkalt-ΔR"],
+                    "description": "Widerstand bei der Temperatur ϑ",
+                    "unit": "Ω"
+                },
+                "Rkalt": {
+                    "expression": ["Rϑ/1+α*Δϑ"],
+                    "description": "Widerstand bei der Temperatur 20°C",
+                    "unit": "Ω"
+                },
+                "ΔR": {
+                    "expression": ["α*Rkalt*Δϑ"],
+                    "description": "Widerstandsänderung",
+                    "unit": "Ω"
+                },
+                "Δϑ": {
+                    "expression": ["Rϑ-Rkalt/α*Rkalt"],
+                    "description": "Temperaturdifferenz",
+                    "unit": "K"
+                }
+            },
+            "Stromdichte": {
+                "J": {
+                    "expression": ["I/A"],
+                    "description": "Stromdichte",
+                    "unit": "A/mm²"
+                }
+            },
+            "Leistungsanpassung": {
+                "U0": {
+                    "expression": ["2*U"],
+                    "description": "Leerlaufspannung / Quellenspannung",
+                    "unit": "V"
+                },
+                "Ik": {
+                    "expression": ["2*I"],
+                    "description": "Kurzschlussstrom",
+                    "unit": "A"
+                },
+                "Pmax": {
+                    "expression": ["U0/2*Ik/2", "U0^2/4*Ri"],
+                    "description": "Kurzschlussstrom",
+                    "unit": "W"
+                },
+                "Ri": {
+                    "expression": ["U0^2/4*Pmax"],
+                    "description": "Innenwiderstand",
+                    "unit": "Ω"
+                }
+            },
+            "Stern in Dreieck": {
+                "description": '<img src="images/sterndreieck.svg" width="300" height="150">',
+                "R10": {
+                    "expression": ["R12*R13/(R12+R13+R23)"],
+                    "description": "Widerstand",
+                    "unit": "Ω"
+                },
+                "R20": {
+                    "expression": ["R12*R23/(R12+R13+R23)"],
+                    "description": "Widerstand",
+                    "unit": "Ω"
+                },
+                "R30": {
+                    "expression": ["R13*R23/(R12+R13+R23)"],
+                    "description": "Widerstand",
+                    "unit": "Ω"
+                }
+            },
+            "Dreieck in Stern": {
+                "description": '<img src="images/sterndreieck.svg" width="300" height="150">',
+                "R12": {
+                    "expression": ["R10*R20/R30+R10+R20"],
+                    "description": "Widerstand",
+                    "unit": "Ω"
+                },
+                "R13": {
+                    "expression": ["R10*R30/R20+R10+R30"],
+                    "description": "Widerstand",
+                    "unit": "Ω"
+                },
+                "R23": {
+                    "expression": ["R20*R30/R10+R20+R30"],
+                    "description": "Widerstand",
+                    "unit": "Ω"
+                }
+            }
+        };
+
+        const mj = function (tex) {
+            return MathJax.tex2svg(tex, {
+                em: 16,
+                ex: 6,
+                display: false
+            });
+        }
+
+        generateForm2("inputarea", formulas, calcScope);
+
+        document.getElementById('form').onsubmit = function (event) {
+            console.log("Submit");
+            event.preventDefault();
+            InputToVariables(formulas, calcScope);
+            calculateFormulars("pretty", "result", formulas, calcScope);
+            VariablesToInput(formulas, calcScope);
+
+        }
+
+        document.getElementById('resetbtn').onclick = function (event) {
+            ResetForm(formulas, calcScope, "result");
+        }
+
+        /*document.getElementById('form').onchange = function (event) {
+            console.log("Change");
+            event.preventDefault();
+            InputToVariables(formulas, calcScope);
+            calculateFormulars("pretty", "result", formulas, calcScope);
+            VariablesToInput(formulas, calcScope);
+
+        }*/
+
+         document.getElementById('form').onchange = function (event) {
+            console.log("Change");
+            event.preventDefault();
+            TableInputToVariables();
+            calculateFormulars2("result", formulas);
+            VariablesToTableInput();
+
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>Wärmetechnik</title>
+
+    <script src="assets/math.min.js"></script>
+    <script src="assets/mathjax/tex-svg.js"></script>
+    <link href="assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="assets/formulartools.js"></script>
+    <script src="assets/tools.js"></script>
+    <script src="assets/tabellen.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>
+            Wärmetechnik
+        </h1>
+        <div id="inputarea"></div>
+        <div id="pretty"></div>
+        <div id="result" class="p-3 border bg-light"></div>
+    </div>
+
+    <script>
+        //delete math.Unit.UNITS.g
+        var calcScope = {}
+
+        let formulas = {
+            "Wärmemenge": {
+                "Q": {
+                    "expression": ["c*m*Δϑ"],
+                    "description": "Wärmemenge",
+                    "unit": "kJ"
+                },
+                "c": {
+                    "expression": ["Q/(m*Δϑ)"],
+                    "description": "spezifische Wärmekapazität",
+                    "unit": "kJ/kg*K"
+                },
+                "m": {
+                    "expression": ["Q/(c*Δϑ)"],
+                    "description": "Masse",
+                    "unit": "kg"
+                },
+                "Δϑ": {
+                    "expression": ["Q/(c*m)"],
+                    "description": "Temperaturunterschied",
+                    "unit": "K"
+                },
+                "P": {
+                    "expression": ["Q/3600"],
+                    "description": "Wärmemenge",
+                    "unit": "kWh"
+                }
+            },
+            "Wärmegemisch": {
+                "T": {
+                    "expression": ["(c1*m1*T1+c2*m2*T2)/(c1*m1+c2*m2)"],
+                    "description": "Temperatur",
+                    "unit": "°C"
+                },
+                "c1": {
+                    "expression": [],
+                    "description": "spezifische Wärmekapazität",
+                    "unit": "kJ/kg*K"
+                },
+                "m1": {
+                    "expression": [],
+                    "description": "Masse",
+                    "unit": "kg"
+                },
+                "T1": {
+                    "expression": [],
+                    "description": "Temperatur 1. Stoff",
+                    "unit": "°C"
+                },
+                "c2": {
+                    "expression": [],
+                    "description": "spezifische Wärmekapazität",
+                    "unit": "kJ/kg*K"
+                },
+                "m2": {
+                    "expression": [],
+                    "description": "Masse",
+                    "unit": "kg"
+                },
+                "T2": {
+                    "expression": [],
+                    "description": "Temperatur 2. Stoff",
+                    "unit": "°C"
+                }
+            },
+            "Wärmedurchgang": {
+                "R": {
+                    "expression": ["d/λ","1/U"],
+                    "description": "Wärmedurchgangswiderstand",
+                    "unit": "m²*K / W"
+                },
+                "d": {
+                    "expression": ["R*λ"],
+                    "description": "Schichtdicke",
+                    "unit": "m"
+                },
+                "λ": {
+                    "expression": ["d/R"],
+                    "description": "Wärmeleitfähigkeit",
+                    "unit": "W/m²*K"
+                },
+                "U": {
+                    "expression": ["1/R","Q/A*Δϑ2"],
+                    "description": "Wärmedurchgangskoeffizient",
+                    "unit": "W/m²*K"
+                },
+                "Δϑ2": {
+                    "expression": ["Q/(c*m)","Q/A*U"],
+                    "description": "Temperaturunterschied",
+                    "unit": "K"
+                },
+                "A": {
+                    "expression": ["Q2/U*Δϑ2"],
+                    "description": "Fläche",
+                    "unit": "m²"
+                },
+                "Q2": {
+                    "expression": ["A*U*Δϑ2"],
+                    "description": "Wärmestrom",
+                    "unit": "kJ"
+                }
+            }
+        };
+
+        const mj = function (tex) {
+            return MathJax.tex2svg(tex, {
+                em: 16,
+                ex: 6,
+                display: false
+            });
+        }
+
+        generateForm("inputarea",formulas,calcScope);
+
+        document.getElementById('form').onsubmit = function (event) {
+            console.log("Submit");
+            event.preventDefault();
+            InputToVariables(formulas, calcScope);
+            calculateFormulars("pretty", "result", formulas, calcScope);
+            VariablesToInput(formulas, calcScope);
+        }
+
+        document.getElementById('form').onchange = function (event) {
+            console.log("Change");
+            event.preventDefault();
+            InputToVariables(formulas, calcScope);
+            calculateFormulars("pretty", "result", formulas, calcScope);
+            VariablesToInput(formulas, calcScope);
+        }
+
+    </script>
+
+</body>
+
+</html>

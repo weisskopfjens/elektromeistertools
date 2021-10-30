@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Umwandlung Zahlensysteme</title>
+	<link href="assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+	<p>
+		<label for="fromnumber" class="form-label">Von</label>
+		<input type="text" class="form-control" id="fromnumber">
+
+		<label for="selection" class="form-label">Wählen</label>
+		<select name="selection" class="form-select" id="selection" size="1">
+			<option value="1">Dez -> Hex</option>
+			<option value="2">Dez -> Bin</option>
+			<option value="3">Hex -> Dez</option>
+			<option value="3">Bin -> Dez</option>
+		</select>
+	</p>
+
+	<p>
+		<output id="result"></output>
+	</p>
+	<button type="button" id="berechnen">Berechnen</button>
+</body>
+
+</html>
+<script>
+	document.querySelector('#berechnen').addEventListener('click', convert);
+
+	function numberSystemConvertion(base, input) {
+		var output = "";
+		var output2 = "";
+		var output3 = 0;
+		var output4 = "";
+		var output5 = 0;
+		// is there a comma. position from right
+		var commaPos = input.indexOf(",");
+		if (commaPos == -1) {
+			commaPos = input.length - 1;
+		}
+		output = output + "<table border=\"1\"><tr>";
+		var i2 = commaPos - 1;
+		// from left to right
+		for (let i = 0; i < input.length; i++) {
+			// jump over comma
+			if (input[i] == ",") {
+				output2 = output2 + "<br><hr>=" + output3 + "<br><br>";
+				output4 = String(output3);
+				output3 = 0;
+				continue;
+			}
+			output = output + "<td>";
+			output = output + base + "<sup>" + String(i2) + "</sup>=" + String(Math.pow(base, i2));
+			output = output + "</td>";
+
+			if (output2.length > 0 && output2[output2.length - 1] != ">") {
+				output2 = output2 + "<br>+";
+			}
+
+			output2 = output2 + String(parseInt(input[i], base)) + "x" + String(Math.pow(base, i2));
+			output3 = output3 + parseInt(input[i], base) * Math.pow(base, i2);
+			i2--;
+		}
+		if (output4.length == 0) {
+			output4 = "0";
+		}
+		output = output + "</tr><tr>";
+		for (let i = 0; i < input.length; i++) {
+			// jump over comma
+			if (input[i] == ",") {
+				continue;
+			}
+			output = output + "<td>";
+			output = output + String(parseInt(input[i], base))
+			output = output + "</td>";
+		}
+		output = output + "</tr></table>" + "<br>" + output2 + "<br><hr>=" + output3 + "<br><br>" + String(parseInt(
+			output4) + output3);
+		return output;
+	}
+
+	function moduloConvertion(base, input) {
+		var output
+		// Moduloverfahren
+		var n2 = 0.0;
+		var n1 = 1;
+		var output1 = ""; // left from comma
+		var output2 = ""; // right from comma
+		var output3 = "";
+		var commaPos = input.indexOf(",");
+		var minusPos = input.indexOf("-");
+		if (minusPos != -1) {
+			if (commaPos != -1 && base == 2) {
+				output = output + "<br><strong>Nicht möglich. Negative Zahl darf kein Komma enthalten.</strong><br>";
+				return;
+			}
+			input = input.replace("-", "");
+			commaPos = input.indexOf(",");
+		}
+		temp = input.split(",");
+		if (temp.length > 1) {
+			n2 = parseFloat("0." + String(temp[1])); // right from comma
+			n1 = temp[0]; // left from comma
+		} else {
+			n1 = temp[0]; // left from comma
+		}
+
+		var rest = 0;
+		var transfer = 0;
+		do {
+			rest = n1 % base;
+			output3 = output3 + n1 + ":" + base + "=";
+			n1 = Math.floor(n1 / base);
+			output3 = output3 + n1 + " Rest " + rest.toString(base) + "<br>";
+			output1 = rest.toString(base) + output1;
+		} while (n1 > 0);
+		var i = 0;
+		output3 = output3 + "<br><hr><br>";
+		do {
+			output3 = output3 + n2.toFixed(1) + "*" + base + "=";
+			n2 = n2 * base;
+			var temp = n2.toString();
+			var leftside = temp.split(".")[0];
+			var rightside = temp.split(".")[1];
+			n2 = parseFloat("0." + rightside);
+			output2 = output2 + parseInt(leftside).toString(base);
+			output3 = output3 + parseInt(leftside).toString(base) + " Übertrag " + n2.toFixed(1) + "<br>";
+			i++;
+			if (i >= 8) {
+				output3 = output3 + "<br>Abbruch";
+				break;
+			}
+		} while (n2 != 0);
+		if (minusPos != -1 && base == 2) {
+			output3 = output3 + "<br><hr><br>";
+			output3 = output3 + "Bilde 2er Kompliment von<br>";
+			output3 = output3 + output1
+			output3 = output3 + " = " + complimentFromBinString(output1);
+			output = output3 + "<br>"
+		} else {
+			output = output3 + "<br><hr><br>" + output1 + "," + output2;
+		}
+		return output;
+	}
+
+	function complimentFromBinString(input) {
+		var output = "";
+		for (i = 0; i < input.length; i++) {
+			if (input.charAt(i) == "0") {
+				output = output + "1";
+			} else {
+				output = output + "0";
+			}
+		}
+		var r = parseInt(output, 2);
+		r = r + 1;
+		output = r.toString(2);
+		return output;
+	}
+
+
+	function convert() {
+		var selection = document.getElementById("selection").selectedIndex;
+		var selectionvalue = parseInt(document.getElementById("selection").options[selection].value);
+		var input = String(document.getElementById("fromnumber").value);
+		var output = "";
+
+		var commaPos = input.indexOf("-");
+		if (selectionvalue == 2) {
+			output = moduloConvertion(2, input);
+			document.getElementById("result").innerHTML = output;
+		} else if (selectionvalue == 1) {
+			output = moduloConvertion(16, input);
+			document.getElementById("result").innerHTML = output;
+		} else if (selectionvalue == 4) {
+			if (commaPos != -1) {
+				document.getElementById("result").innerHTML = "<strong>Negative Werte noch nicht implementiert</strong>";
+				return;
+			}
+			output = numberSystemConvertion(2, input);
+			document.getElementById("result").innerHTML = output;
+		} else if (selectionvalue == 3) {
+			output = numberSystemConvertion(16, input);
+			document.getElementById("result").innerHTML = output;
+		} else {
+			document.getElementById("result").innerHTML = "<strong>Noch nicht implementiert</strong>";
+		}
+
+	}
+</script>

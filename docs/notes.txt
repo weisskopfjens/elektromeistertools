@@ -1,0 +1,9 @@
+# dreiecksfunktionen
+2.5 - abs(x % (2*5) - 5)
+asin(cos(x))
+
+# Sägezahn
+acot(tan(x))*-1
+
+# Rechteck
+atan(sin(x))+acot(sin(x))
