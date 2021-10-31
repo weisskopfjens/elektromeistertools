@@ -1,15 +1,10 @@
 var globalCalcScopes = {}
 
-function generateForm2(id, formulas, calcScope) {
+function generateForm(id, formulas, calcScope) {
     const maindiv = document.getElementById(id);
     maindiv.innerHTML = "";
     form = document.createElement("form");
     form.setAttribute('id', 'form');
-
-    submitbutton = document.createElement("input");
-    submitbutton.setAttribute('type', 'submit');
-    submitbutton.setAttribute('value', 'Berechnen');
-    submitbutton.setAttribute("class", "btn btn-primary mb-3");
 
     resetbutton = document.createElement("input");
     resetbutton.setAttribute('id', 'resetbtn');
@@ -20,12 +15,8 @@ function generateForm2(id, formulas, calcScope) {
     buttonrow.setAttribute("class", "row");
     button1col = document.createElement("div");
     button1col.setAttribute("class", "col col-sm-2");
-    button2col = document.createElement("div");
-    button2col.setAttribute("class", "col col-sm-2");
-    button1col.appendChild(submitbutton);
-    button2col.appendChild(resetbutton);
+    button1col.appendChild(resetbutton);
     buttonrow.appendChild(button1col);
-    buttonrow.appendChild(button2col);
     form.appendChild(buttonrow);
 
     table = document.createElement("table");
@@ -41,7 +32,9 @@ function generateForm2(id, formulas, calcScope) {
     table.setAttribute("data-detail-formatter", "detailFormatter");
     table.setAttribute("data-show-pagination-switch", "true");
     table.setAttribute("data-pagination", "true");
-    table.setAttribute("data-page-list", "[10, 25, 50, 100, all]");
+    table.setAttribute("data-page-list", "[25, 50, 100, all]");
+    table.setAttribute("data-filter-control","true");
+    table.setAttribute("data-show-export","true");
 
     form.appendChild(table);
     maindiv.appendChild(form);
@@ -53,6 +46,7 @@ function generateForm2(id, formulas, calcScope) {
                 field: 'category',
                 align: 'center',
                 valign: 'middle',
+                filterControl: 'select',
                 sortable: true
             },
             {
@@ -60,6 +54,7 @@ function generateForm2(id, formulas, calcScope) {
                 field: 'sign',
                 align: 'center',
                 valign: 'middle',
+                filterControl: 'select',
                 sortable: true
             },
             {
@@ -75,6 +70,7 @@ function generateForm2(id, formulas, calcScope) {
                 field: 'description',
                 align: 'center',
                 valign: 'middle',
+                filterControl: 'select',
                 sortable: true
             },
             {
@@ -90,6 +86,7 @@ function generateForm2(id, formulas, calcScope) {
                 field: 'unit',
                 align: 'center',
                 valign: 'middle',
+                filterControl: 'select',
                 sortable: true
 
             }
@@ -125,7 +122,7 @@ function detailFormatter(index, row) {
     formulardiv.setAttribute("class", "container px-4");
     formularrowdiv = document.createElement("div");
     formularrowdiv.setAttribute("class", "row gx-5");
-    formulardiv.appendChild(formularrowdiv);
+    
     for (let expr of formulas[row.category][row.sign].expression) {
         try {
             node = math.parse(encVarname(expr), calcScope);
@@ -145,16 +142,24 @@ function detailFormatter(index, row) {
             formularhintcol.setAttribute("class", "col");
             formularhint = document.createElement("div");
             formularhint.setAttribute("class", "p-1 border bg-light");
-
-            
             formularhint.innerHTML = mj( decVarname(latex) ).outerHTML;
-            console.log(latex,decVarname(latex))
+            //console.log(latex,decVarname(latex))
             formularhintcol.appendChild(formularhint);
             formularrowdiv.appendChild(formularhintcol);
         } catch (err) {
             console.log(err);
             continue;
         }
+        formulardiv.appendChild(formularrowdiv);
+    }
+    if(formulas[row.category][row.sign].adddescription!=undefined) {
+        formularrowdiv2 = document.createElement("div");
+        formularrowdiv2.setAttribute("class", "row gx-5");
+        formularhintcol2 = document.createElement("div");
+        formularhintcol2.setAttribute("class", "col");
+        formularhintcol2.innerHTML = formulas[row.category][row.sign].adddescription;
+        formularrowdiv2.appendChild(formularhintcol2);
+        formulardiv.appendChild(formularrowdiv2);
     }
     return formulardiv.outerHTML;
 }
@@ -163,9 +168,10 @@ function inputFormatter(value, row, index) {
     div = document.createElement("div");
     input = document.createElement("input");
     input.setAttribute("class", "form-control tableinput");
-    input.setAttribute("id", "input " + row.category + " " + row.sign);
+    input.setAttribute("id", "idinput" + index);
     input.setAttribute("value", value);
     input.setAttribute("tindex", index);
+    input.setAttribute("onchange",'inputValue("input",this)');
     if (row.input != "") {
         input.readOnly = true;
     }
@@ -175,9 +181,12 @@ function inputFormatter(value, row, index) {
     if (formulas[row.category][row.sign].table !== undefined) {
         select = document.createElement("select");
         select.setAttribute("class", "form-select");
-        select.setAttribute("onchange", 'setValueFromSelect(this,\'' + "input " + row.category + " " + row.sign + '\');');
+        select.setAttribute("onchange", 'setValueFromSelect(this,"idinput'+index+'");inputValue("input", document.getElementById("idinput'+index+'"));');
         select.setAttribute("aria-label", "Default select example");
-        select.setAttribute("id", "idselect" + row.sign);
+        select.setAttribute("id", "idselect"  + index);
+        if (row.input != "") {
+            select.setAttribute("disabled","");
+        }
         select.innerHTML = optionsFromTable(formulas[row.category][row.sign].table, formulas[row.category][row.sign].tablecolumn1, formulas[row.category][row.sign].tablecolumn2);
         selectformtext = document.createElement("div");
         selectformtext.setAttribute("class", "form-text");
@@ -188,6 +197,14 @@ function inputFormatter(value, row, index) {
     return div.outerHTML;
 }
 
+function doCalculation() {
+    console.log("Calculate")
+    TableInputToVariables();
+    calculateFormulars("result", formulas);
+    VariablesToTableInput();
+    console.log(globalCalcScopes)
+}
+
 // Set bootstrap table value
 function inputValue(field, inputelement) {
     $('#table').bootstrapTable('updateCell', {
@@ -195,9 +212,15 @@ function inputValue(field, inputelement) {
         field: field,
         value: inputelement.value
     });
+    doCalculation();
 }
 
-function calculateFormulars2(resultid, formulas) {
+function normalizeCategory(category) {
+    output = category.replaceAll(" ","");
+    return output;
+}
+
+function calculateFormulars(resultid, formulas) {
     const result = document.getElementById(resultid);
     result.innerHTML = '';
     for (var categoryname in formulas) {
@@ -206,37 +229,37 @@ function calculateFormulars2(resultid, formulas) {
             if (sign === 'description') {
                 continue;
             }
+            if (globalCalcScopes[normalizeCategory(categoryname)]!=undefined) {
+                if (globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)] != undefined) {
+                    v=globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)]
+                    if (v!="") {
+                        continue;
+                    }
+                }
+            }
+           
+            
             obj = formulas[categoryname][sign];
             let parenthesis = 'keep'
             let implicit = 'hide'
             for (let expr of obj.expression) {
                 try {
-                    node = math.parse(encVarname(expr), globalCalcScopes[categoryname]);
-                    //calcScope[encVarname(sign)] = math.format(node.compile().evaluate(calcScope));
-                    globalCalcScopes[categoryname][encVarname(sign)] = math.format(node.compile().evaluate(globalCalcScopes[categoryname]));
+                    node = math.parse(encVarname(expr), globalCalcScopes[normalizeCategory(categoryname)]);
+                    globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)] = math.format(node.compile().evaluate(globalCalcScopes[normalizeCategory(categoryname)]));
                 } catch (err) {
                     //console.log(err);
                     continue;
                 }
-                //console.log("calc");
-                //console.log(expr);
-                //console.log(math.format(node.compile().evaluate(calcScope)));
+    
                 try {
                     const latex = node ? node.toTex({
                         parenthesis: parenthesis,
                         implicit: implicit
                     }) : ''
-
                     MathJax.typesetClear();
                     result.innerHTML += sign + " = ";
-                    //console.log(latex);
-                    //console.log(decVarname(latex));
                     result.appendChild(mj(decVarname(latex)));
-                    /*result.innerHTML += " = " + calcScope[encVarname(sign)] + " [ " + formulas[
-                            categoryname][sign]
-                        .description +
-                        ']<br><hr>'*/
-                    result.innerHTML += " = " + globalCalcScopes[categoryname][encVarname(sign)] + " [ " + formulas[
+                    result.innerHTML += " = " + globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)]+ formulas[categoryname][sign]["unit"] + " [" + formulas[
                             categoryname][sign]
                         .description +
                         ']<br><hr>'
@@ -251,70 +274,64 @@ function TableInputToVariables() {
     var $table = $('#table');
     rows = $table.bootstrapTable('getData');
     for (var row of rows) {
-        input = document.getElementById("input " + row.category + " " + row.sign);
-        // input element not found?
-        if (input == undefined) {
-            console.log("Error:",row)
+        if (row.input=="") {
             continue;
         }
-        // input element no value?
-        if (input.value=="") {
-            console.log("Input empty:",row)
-            continue;
+        if (globalCalcScopes[normalizeCategory(row.category)] == undefined) {
+            //console.log("category:",normalizeCategory(row.category),"=undefined");
+            globalCalcScopes[normalizeCategory(row.category)] = {}
         }
-        inputValue("input", input);
-        /*if (row.input == "") {
-            continue;
-        }*/
-
-        //console.log(row);
-
-        //Set global scope
-        if (globalCalcScopes[row.category] == undefined) {
-            console.log("category:",row.category,"=undefined");
-            globalCalcScopes[row.category] = {}
+        if (globalCalcScopes[normalizeCategory(row.category)][encVarname(row.sign)] == undefined) {
+            //console.log("sign:",encVarname(row.sign),"=undefined");
+            globalCalcScopes[normalizeCategory(row.category)][encVarname(row.sign)] = {}
         }
-        if (globalCalcScopes[row.category][encVarname(row.sign)] == undefined) {
-            console.log("sign:",row.sign,"=undefined");
-            globalCalcScopes[row.category][encVarname(row.sign)] = {}
-        }
-        globalCalcScopes[row.category][encVarname(row.sign)] = row.input;
-        console.log(globalCalcScopes[row.category])
+        globalCalcScopes[normalizeCategory(row.category)][encVarname(row.sign)] = row.input;
     }
-
+    console.log("T2V",globalCalcScopes);
 }
 
 function VariablesToTableInput() {
-    for (var categoryi in globalCalcScopes) {
-        for (var signi in globalCalcScopes[categoryi]) {
-            varname = decVarname(signi);
-            input = document.getElementById("input " + categoryi + " " + varname);
-            if (globalCalcScopes[categoryi][varname] === undefined || input === undefined) {
-                continue;
-            }
-            input.value = globalCalcScopes[categoryi][varname];
-            inputValue("input", input);
+    var $table = $('#table');
+    rows = $table.bootstrapTable('getData');
+    i=0;
+    for (var row of rows) {
+        //console.log(row)
+        console.log(normalizeCategory(row.category),encVarname(row.sign));
+
+        if(globalCalcScopes[normalizeCategory(row.category)] == undefined) {
+            i++;
+            continue;
         }
-    }
+        newvalue = globalCalcScopes[normalizeCategory(row.category)][encVarname(row.sign)];
+
+        if(newvalue == undefined) {
+            i++;
+            continue;
+        }
+        $('#table').bootstrapTable('updateCell', {
+            index: i,
+            field: "input",
+            value: newvalue
+        });
+        i++;
+    }   
+    console.log("V2T",globalCalcScopes);
 }
 
-function ResetForm(formulas, calcScope, resultid) {
-    for (var categoryname in formulas) {
-        for (var sign in formulas[categoryname]) {
-            // jump over description
-            if (sign === 'description') {
-                continue;
-            }
-
-            const o = document.getElementById(sign);
-            o.value = "";
-            o.readOnly = false;
-            calcScope[encVarname(sign, formulas)] = undefined;
-        }
+function ResetForm() {
+    var $table = $('#table');
+    rows = $table.bootstrapTable('getData');
+    i=0;
+    for (var row of rows) {
+        $('#table').bootstrapTable('updateCell', {
+            index: i,
+            field: "input",
+            value: ""
+        });
+        i++;
     }
-    const result = document.getElementById(resultid);
-    result.innerHTML = "";
-    //console.log(calcScope);
+    globalCalcScopes={};
+    TableInputToVariables();
 }
 
 function encVarname(input) {

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>Formelsammlung</title>
+
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet">
+    <script src="assets/jquery/jquery.js"></script>
+    <script src="assets/math.min.js"></script>
+    <script src="assets/mathjax/tex-svg.js"></script>
+    <link href="assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
+    <link href="assets/bootstrap_table/bootstrap-table.css" rel="stylesheet">
+    <script src="assets/bootstrap_table/bootstrap-table.js"></script>
+    <script src="assets/bootstrap_table/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    
+    <script src="assets/bootstrap_table/extensions/export/tableExport.min.js"></script>
+    <script src="assets/bootstrap_table/extensions/export/bootstrap-table-export.min.js"></script>
+
+    <script src="assets/tools.js"></script>
+    <script src="assets/formulartools.js"></script>
+    <script src="assets/tabellen.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>
+            Formelsammlung
+        </h1>
+        <div id="inputarea"></div>
+        <div id="result" class="p-3 border bg-light"></div>
+    </div>
+
+    <script>
+        //delete math.Unit.UNITS.g
+        var calcScope = {}
+
+        let formulas = {
+            "Ohmisches Gesetz": {
+                "U": {
+                    "expression": ["I*R", "P/I", "sqrt(P*R)"],
+                    "description": "Spannung",
+                    "unit": "V"
+                },
+                "I": {
+                    "expression": ["U/R", "sqrt(P/R)", "P/U", "J*A"],
+                    "description": "Strom",
+                    "unit": "A"
+                },
+                "R": {
+                    "expression": ["U/I", "P/I^2", "U^2/P", "ρ*l/A", "l/γ*A", "1/G"],
+                    "description": "Wirk-Widerstand",
+                    "unit": "Ω"
+                },
+                "P": {
+                    "expression": ["U*I", "I^2*R", "U^2/R"],
+                    "description": "Wirk-Leistung",
+                    "unit": "W"
+                },
+                "G": {
+                    "expression": ["1/R"],
+                    "description": "Wirk-Leitwert",
+                    "unit": "S"
+                }
+            },
+            "Wechselstrom": {
+                "U": {
+                    "expression": ["Z*I"],
+                    "description": "Spannung AC",
+                    "unit": "V"
+                },
+                "I": {
+                    "expression": ["U/Z"],
+                    "description": "Strom AC",
+                    "unit": "A"
+                },
+                "P": {
+                    "expression": ["U*I*cos(ϕ)"],
+                    "description": "Wirkleistung",
+                    "unit": "W"
+                },
+                "S": {
+                    "expression": ["U*I","sqrt(P^2/Q^2)"],
+                    "description": "Scheinleistung",
+                    "unit": "VA"
+                },
+                "Z": {
+                    "expression": ["sqrt(R^2/X^2)"],
+                    "description": "Blindleistung",
+                    "unit": "var"
+                },
+                "ϕ": {
+                    "expression": ["acos(R/Z)"],
+                    "description": "Phasenverschiebungswinkel",
+                    "unit": "°"
+                }
+            },
+            "Drehstrom": {
+                "U": {
+                    "expression": ["Z*I","Q/sqrt(3)*I*sin(ϕ)","S/sqrt(3)*I"],
+                    "description": "Spannung Drehstrom",
+                    "unit": "V"
+                },
+                "I": {
+                    "expression": ["Q/sqrt(3)*U*sin(ϕ)","P/sqrt(3)*U*cos(ϕ)","S/sqrt(3)*U"],
+                    "description": "Strom Drehstrom",
+                    "unit": "A"
+                },
+                "S": {
+                    "expression": ["U*I*sqrt(3)","Q/sin(ϕ)","P/cos(ϕ)"],
+                    "description": "Scheinleistung Drehstrom",
+                    "unit": "VA"
+                },
+                "P": {
+                    "expression": ["U*I*sqrt(3)*cos(ϕ)","S*cos(ϕ)"],
+                    "description": "Wirkleistung Drehstrom",
+                    "unit": "W"
+                },
+                "Q": {
+                    "expression": ["S*sin(ϕ)","sqrt(3)*U*I*sin(ϕ)"],
+                    "description": "Blindleistung Drehstrom",
+                    "unit": "W"
+                },
+                "ϕ": {
+                    "expression": ["asin(Q/S)","acos(P/S)","asin(Q/sqrt(3)*U*I)"],
+                    "description": "Phasenwinkel Drehstrom",
+                    "unit": "W"
+                }
+            },
+            "Leiterwiderstand": {
+                "R": {
+                    "expression": ["ρ*l/A", "l/γ*A", "1/G"],
+                    "description": "Wirk-Widerstand",
+                    "unit": "Ω"
+                },
+                "G": {
+                    "expression": ["1/R"],
+                    "description": "Wirk-Leitwert",
+                    "unit": "S"
+                },
+                "γ": {
+                    "expression": ["1/ρ"],
+                    "description": "elektrische Leitfähigkeit",
+                    "unit": "m/Ω*mm²"
+                },
+                "ρ": {
+                    "expression": ["1/γ"],
+                    "description": "spezifischer Widerstand",
+                    "unit": "Ω・mm²/m",
+                    "table": werkstoffe,
+                    "tablecolumn1": "Werkstoff",
+                    "tablecolumn2": "Spezifischer_Widerstand"
+                },
+                "A": {
+                    "expression": ["ρ*l/R", "l/γ*R", "I/J"],
+                    "description": "Fläche",
+                    "unit": "mm²"
+                },
+                "l": {
+                    "expression": ["R*A/ρ", "A*γ*R"],
+                    "description": "Länge",
+                    "unit": "m"
+                }
+            },
+            "Widerstand und Temperatur": {
+                "α": {
+                    "expression": ["ΔR/Rkalt*Δϑ"],
+                    "description": "Temperaturkoeffizient/Temperaturbeiwert",
+                    "unit": "1/K",
+                    "table": werkstoffe,
+                    "tablecolumn1": "Werkstoff",
+                    "tablecolumn2": "Temperaturkoeffizient"
+                },
+                "Rϑ": {
+                    "expression": ["Rkalt-ΔR"],
+                    "description": "Widerstand bei der Temperatur ϑ",
+                    "unit": "Ω"
+                },
+                "Rkalt": {
+                    "expression": ["Rϑ/1+α*Δϑ"],
+                    "description": "Widerstand bei der Temperatur 20°C",
+                    "unit": "Ω"
+                },
+                "ΔR": {
+                    "expression": ["α*Rkalt*Δϑ"],
+                    "description": "Widerstandsänderung",
+                    "unit": "Ω"
+                },
+                "Δϑ": {
+                    "expression": ["Rϑ-Rkalt/α*Rkalt"],
+                    "description": "Temperaturdifferenz",
+                    "unit": "K"
+                }
+            },
+            "Stromdichte": {
+                "J": {
+                    "expression": ["I/A"],
+                    "description": "Stromdichte",
+                    "unit": "A/mm²"
+                }
+            },
+            "Leistungsanpassung": {
+                "U0": {
+                    "expression": ["2*U"],
+                    "description": "Leerlaufspannung / Quellenspannung",
+                    "unit": "V"
+                },
+                "Ik": {
+                    "expression": ["2*I"],
+                    "description": "Kurzschlussstrom",
+                    "unit": "A"
+                },
+                "Pmax": {
+                    "expression": ["U0/2*Ik/2", "U0^2/4*Ri"],
+                    "description": "Kurzschlussstrom",
+                    "unit": "W"
+                },
+                "Ri": {
+                    "expression": ["U0^2/4*Pmax"],
+                    "description": "Innenwiderstand",
+                    "unit": "Ω"
+                }
+            },
+            "Stern in Dreieck": {
+                "R10": {
+                    "expression": ["R12*R13/(R12+R13+R23)"],
+                    "description": "Widerstand",
+                    "adddescription": '<img src="images/sterndreieck.svg" width="300" height="150">',
+                    "unit": "Ω"
+                },
+                "R20": {
+                    "expression": ["R12*R23/(R12+R13+R23)"],
+                    "description": "Widerstand",
+                    "adddescription": '<img src="images/sterndreieck.svg" width="300" height="150">',
+                    "unit": "Ω"
+                },
+                "R30": {
+                    "expression": ["R13*R23/(R12+R13+R23)"],
+                    "description": "Widerstand",
+                    "adddescription": '<img src="images/sterndreieck.svg" width="300" height="150">',
+                    "unit": "Ω"
+                }
+            },
+            "Dreieck in Stern": {
+                "R12": {
+                    "expression": ["R10*R20/R30+R10+R20"],
+                    "description": "Widerstand",
+                    "adddescription": '<img src="images/sterndreieck.svg" width="300" height="150">',
+                    "unit": "Ω"
+                },
+                "R13": {
+                    "expression": ["R10*R30/R20+R10+R30"],
+                    "description": "Widerstand",
+                    "adddescription": '<img src="images/sterndreieck.svg" width="300" height="150">',
+                    "unit": "Ω"
+                },
+                "R23": {
+                    "expression": ["R20*R30/R10+R20+R30"],
+                    "description": "Widerstand",
+                    "adddescription": '<img src="images/sterndreieck.svg" width="300" height="150">',
+                    "unit": "Ω"
+                }
+            }, 
+            "Wärmemenge": {
+                "Q": {
+                    "expression": ["c*m*Δϑ"],
+                    "description": "Wärmemenge",
+                    "unit": "kJ"
+                },
+                "c": {
+                    "expression": ["Q/(m*Δϑ)"],
+                    "description": "spezifische Wärmekapazität",
+                    "unit": "kJ/kg*K"
+                },
+                "m": {
+                    "expression": ["Q/(c*Δϑ)"],
+                    "description": "Masse",
+                    "unit": "kg"
+                },
+                "Δϑ": {
+                    "expression": ["Q/(c*m)"],
+                    "description": "Temperaturunterschied",
+                    "unit": "K"
+                },
+                "P": {
+                    "expression": ["Q/3600"],
+                    "description": "Wärmemenge",
+                    "unit": "kWh"
+                }
+            },
+            "Wärmegemisch": {
+                "T": {
+                    "expression": ["(c1*m1*T1+c2*m2*T2)/(c1*m1+c2*m2)"],
+                    "description": "Temperatur",
+                    "unit": "°C"
+                },
+                "c1": {
+                    "expression": [],
+                    "description": "spezifische Wärmekapazität",
+                    "unit": "kJ/kg*K"
+                },
+                "m1": {
+                    "expression": [],
+                    "description": "Masse",
+                    "unit": "kg"
+                },
+                "T1": {
+                    "expression": [],
+                    "description": "Temperatur 1. Stoff",
+                    "unit": "°C"
+                },
+                "c2": {
+                    "expression": [],
+                    "description": "spezifische Wärmekapazität",
+                    "unit": "kJ/kg*K"
+                },
+                "m2": {
+                    "expression": [],
+                    "description": "Masse",
+                    "unit": "kg"
+                },
+                "T2": {
+                    "expression": [],
+                    "description": "Temperatur 2. Stoff",
+                    "unit": "°C"
+                }
+            },
+            "Wärmedurchgang": {
+                "R": {
+                    "expression": ["d/λ","1/U"],
+                    "description": "Wärmedurchgangswiderstand",
+                    "unit": "m²*K / W"
+                },
+                "d": {
+                    "expression": ["R*λ"],
+                    "description": "Schichtdicke",
+                    "unit": "m"
+                },
+                "λ": {
+                    "expression": ["d/R"],
+                    "description": "Wärmeleitfähigkeit",
+                    "unit": "W/m²*K"
+                },
+                "U": {
+                    "expression": ["1/R","Q/A*Δϑ2"],
+                    "description": "Wärmedurchgangskoeffizient",
+                    "unit": "W/m²*K"
+                },
+                "Δϑ2": {
+                    "expression": ["Q/(c*m)","Q/A*U"],
+                    "description": "Temperaturunterschied",
+                    "unit": "K"
+                },
+                "A": {
+                    "expression": ["Q2/U*Δϑ2"],
+                    "description": "Fläche",
+                    "unit": "m²"
+                },
+                "Q2": {
+                    "expression": ["A*U*Δϑ2"],
+                    "description": "Wärmestrom",
+                    "unit": "kJ"
+                }
+            },
+            "Antennentechnik Sat": {
+                "f1": {
+                    "expression": ["f3+9750"],
+                    "description": "L-Band",
+                    "adddescription": '<div>10700-11700MHz</div>',
+                    "unit": "Mhz"
+                },
+                "f2": {
+                    "expression": ["f4+10600"],
+                    "description": "H-Band",
+                    "adddescription": '<div>11701-12750MHz</div>',
+                    "unit": "Mhz"
+                },
+                "f3": {
+                    "expression": ["f1-9750"],
+                    "description": "L-Band Osz.",
+                    "adddescription": '<div>L-Band Oszillator 9750MHz</div>',
+                    "unit": "Mhz"
+                },
+                "f4": {
+                    "expression": ["f2-10600"],
+                    "description": "H-Band Osz.",
+                    "adddescription": '<div>H-Band Oszillator 10600MHz</div>',
+                    "unit": "Mhz"
+                }
+            },
+            "Magnetische Größen": {
+                "f1": {
+                    "expression": ["f3+9750"],
+                    "description": "L-Band",
+                    "adddescription": '<div>10700-11700MHz</div>',
+                    "unit": "Mhz"
+                },
+                "f2": {
+                    "expression": ["f4+10600"],
+                    "description": "H-Band",
+                    "adddescription": '<div>11701-12750MHz</div>',
+                    "unit": "Mhz"
+                },
+                "f3": {
+                    "expression": ["f1-9750"],
+                    "description": "L-Band Osz.",
+                    "adddescription": '<div>L-Band Oszillator 9750MHz</div>',
+                    "unit": "Mhz"
+                },
+                "f4": {
+                    "expression": ["f2-10600"],
+                    "description": "H-Band Osz.",
+                    "adddescription": '<div>H-Band Oszillator 10600MHz</div>',
+                    "unit": "Mhz"
+                }
+            }
+        };
+
+        const mj = function (tex) {
+            return MathJax.tex2svg(tex, {
+                em: 16,
+                ex: 6,
+                display: false
+            });
+        }
+
+        generateForm("inputarea", formulas, calcScope);
+
+        document.getElementById('resetbtn').onclick = function (event) {
+            ResetForm();
+        }
+
+    </script>
+
+</body>
+
+</html>
