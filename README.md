@@ -11,3 +11,5 @@ Ich werde die Tools und die Formelsammlung Stück für Stück erweitern.
 
 www.jensweisskopf.de
 Elektrofachkraft Podcast
+
+https://jensweisskopf.de/efk-elektro-fachkraft-podcast/
