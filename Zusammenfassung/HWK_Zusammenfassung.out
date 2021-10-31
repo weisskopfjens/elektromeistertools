@@ -1,0 +1,49 @@
+\BOOKMARK [1][-]{section.1}{Antennentechnik}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Modulationsarten und Frequenzen}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{DVB-S}{section.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Frequenzen}{subsection.1.2}% 4
+\BOOKMARK [3][-]{subsubsection.1.2.2}{S/N Signal-Rauschabstand \(NM Noise Margin\)}{subsection.1.2}% 5
+\BOOKMARK [3][-]{subsubsection.1.2.3}{Biterrorrate}{subsection.1.2}% 6
+\BOOKMARK [3][-]{subsubsection.1.2.4}{Ebenen}{subsection.1.2}% 7
+\BOOKMARK [3][-]{subsubsection.1.2.5}{Sonstiges}{subsection.1.2}% 8
+\BOOKMARK [3][-]{subsubsection.1.2.6}{DiSEqC \(Digital Satelite Equipment Control}{subsection.1.2}% 9
+\BOOKMARK [2][-]{subsection.1.3}{DVB-T2}{section.1}% 10
+\BOOKMARK [3][-]{subsubsection.1.3.1}{Modulation}{subsection.1.3}% 11
+\BOOKMARK [3][-]{subsubsection.1.3.2}{S/N Signal-Rauschabstand \(NM Noise Margin\)}{subsection.1.3}% 12
+\BOOKMARK [3][-]{subsubsection.1.3.3}{Biterrorrate}{subsection.1.3}% 13
+\BOOKMARK [3][-]{subsubsection.1.3.4}{\326ffentlich-rechtliche-Sender}{subsection.1.3}% 14
+\BOOKMARK [3][-]{subsubsection.1.3.5}{Modulationskette}{subsection.1.3}% 15
+\BOOKMARK [3][-]{subsubsection.1.3.6}{Sonstiges}{subsection.1.3}% 16
+\BOOKMARK [2][-]{subsection.1.4}{DVB-C}{section.1}% 17
+\BOOKMARK [3][-]{subsubsection.1.4.1}{Modulation}{subsection.1.4}% 18
+\BOOKMARK [3][-]{subsubsection.1.4.2}{\326ffentlich-rechtliche-Sender}{subsection.1.4}% 19
+\BOOKMARK [2][-]{subsection.1.5}{Messger\344t}{section.1}% 20
+\BOOKMARK [3][-]{subsubsection.1.5.1}{AMA 300}{subsection.1.5}% 21
+\BOOKMARK [3][-]{subsubsection.1.5.2}{VAROS 106}{subsection.1.5}% 22
+\BOOKMARK [1][-]{section.2}{Digitaltechnik}{}% 23
+\BOOKMARK [2][-]{subsubsection.2.0.1}{Zahlenformate SPS}{section.2}% 24
+\BOOKMARK [3][-]{subsubsection.2.0.2}{SPS Eingangspegel \( True / False \)}{subsubsection.2.0.1}% 25
+\BOOKMARK [1][-]{section.3}{Mathematik}{}% 26
+\BOOKMARK [2][-]{subsection.3.1}{Winkelfunktionen}{section.3}% 27
+\BOOKMARK [2][-]{subsection.3.2}{Dezimale Vielfache}{section.3}% 28
+\BOOKMARK [2][-]{subsection.3.3}{Quadratische Gleichung}{section.3}% 29
+\BOOKMARK [2][-]{subsection.3.4}{Potenzen, Wurzeln, Logarithmen}{section.3}% 30
+\BOOKMARK [2][-]{subsection.3.5}{Komplexe Zahlen}{section.3}% 31
+\BOOKMARK [1][-]{section.4}{Physik}{}% 32
+\BOOKMARK [2][-]{subsection.4.1}{Ohmisches Gesetz}{section.4}% 33
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Im Gleichstromnetz}{subsection.4.1}% 34
+\BOOKMARK [2][-]{subsection.4.2}{Leistung}{section.4}% 35
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Im Drehstromnetz}{subsection.4.2}% 36
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Im Wechselstromnetz}{subsection.4.2}% 37
+\BOOKMARK [2][-]{subsection.4.3}{Leitungsberechnung}{section.4}% 38
+\BOOKMARK [2][-]{subsection.4.4}{Magnetismus}{section.4}% 39
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Durchflutung}{subsection.4.4}% 40
+\BOOKMARK [3][-]{subsubsection.4.4.2}{Feldst\344rke}{subsection.4.4}% 41
+\BOOKMARK [3][-]{subsubsection.4.4.3}{Permeabilit\344t}{subsection.4.4}% 42
+\BOOKMARK [3][-]{subsubsection.4.4.4}{Magnetischer Fluss}{subsection.4.4}% 43
+\BOOKMARK [3][-]{subsubsection.4.4.5}{Magnetischer Flussdichte}{subsection.4.4}% 44
+\BOOKMARK [3][-]{subsubsection.4.4.6}{Magnetische Feldkonstante}{subsection.4.4}% 45
+\BOOKMARK [2][-]{subsection.4.5}{Gleichstrom}{section.4}% 46
+\BOOKMARK [2][-]{subsection.4.6}{Wechselstrom}{section.4}% 47
+\BOOKMARK [2][-]{subsection.4.7}{Drehstrom}{section.4}% 48
+\BOOKMARK [2][-]{subsection.4.8}{Kondensator}{section.4}% 49

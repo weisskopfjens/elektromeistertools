@@ -1,0 +1,50 @@
+\babel@toc {german}{}
+\contentsline {section}{\numberline {1}Antennentechnik}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Modulationsarten und Frequenzen}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}DVB-S}{4}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Frequenzen}{4}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}S/N Signal-Rauschabstand (NM Noise Margin)}{4}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.3}Biterrorrate}{4}{subsubsection.1.2.3}%
+\contentsline {subsubsection}{\numberline {1.2.4}Ebenen}{5}{subsubsection.1.2.4}%
+\contentsline {subsubsection}{\numberline {1.2.5}Sonstiges}{5}{subsubsection.1.2.5}%
+\contentsline {subsubsection}{\numberline {1.2.6}DiSEqC (Digital Satelite Equipment Control}{5}{subsubsection.1.2.6}%
+\contentsline {subsection}{\numberline {1.3}DVB-T2}{5}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Modulation}{5}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.2}S/N Signal-Rauschabstand (NM Noise Margin)}{5}{subsubsection.1.3.2}%
+\contentsline {subsubsection}{\numberline {1.3.3}Biterrorrate}{5}{subsubsection.1.3.3}%
+\contentsline {subsubsection}{\numberline {1.3.4}Öffentlich-rechtliche-Sender}{5}{subsubsection.1.3.4}%
+\contentsline {subsubsection}{\numberline {1.3.5}Modulationskette}{6}{subsubsection.1.3.5}%
+\contentsline {subsubsection}{\numberline {1.3.6}Sonstiges}{6}{subsubsection.1.3.6}%
+\contentsline {subsection}{\numberline {1.4}DVB-C}{6}{subsection.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.1}Modulation}{6}{subsubsection.1.4.1}%
+\contentsline {subsubsection}{\numberline {1.4.2}Öffentlich-rechtliche-Sender}{6}{subsubsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.5}Messgerät}{7}{subsection.1.5}%
+\contentsline {subsubsection}{\numberline {1.5.1}AMA 300}{7}{subsubsection.1.5.1}%
+\contentsline {subsubsection}{\numberline {1.5.2}VAROS 106}{9}{subsubsection.1.5.2}%
+\contentsline {section}{\numberline {2}Digitaltechnik}{10}{section.2}%
+\contentsline {subsubsection}{\numberline {2.0.1}Zahlenformate SPS}{10}{subsubsection.2.0.1}%
+\contentsline {subsubsection}{\numberline {2.0.2}SPS Eingangspegel ( True / False )}{10}{subsubsection.2.0.2}%
+\contentsline {section}{\numberline {3}Mathematik}{11}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Winkelfunktionen}{11}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Dezimale Vielfache}{11}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Quadratische Gleichung}{11}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Potenzen, Wurzeln, Logarithmen}{12}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Komplexe Zahlen}{13}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Physik}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Ohmisches Gesetz}{14}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Im Gleichstromnetz}{14}{subsubsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.2}Leistung}{14}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Im Drehstromnetz}{14}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Im Wechselstromnetz}{14}{subsubsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.3}Leitungsberechnung}{14}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Magnetismus}{14}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Durchflutung}{15}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Feldstärke}{15}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}Permeabilität}{15}{subsubsection.4.4.3}%
+\contentsline {subsubsection}{\numberline {4.4.4}Magnetischer Fluss}{15}{subsubsection.4.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.5}Magnetischer Flussdichte}{15}{subsubsection.4.4.5}%
+\contentsline {subsubsection}{\numberline {4.4.6}Magnetische Feldkonstante}{15}{subsubsection.4.4.6}%
+\contentsline {subsection}{\numberline {4.5}Gleichstrom}{16}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Wechselstrom}{16}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Drehstrom}{16}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Kondensator}{16}{subsection.4.8}%
