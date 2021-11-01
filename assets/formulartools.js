@@ -247,7 +247,10 @@ function calculateFormulars(resultid, formulas) {
                     node = math.parse(encVarname(expr), globalCalcScopes[normalizeCategory(categoryname)]);
                     globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)] = math.format(node.compile().evaluate(globalCalcScopes[normalizeCategory(categoryname)]));
                 } catch (err) {
-                    //console.log(err);
+                    if(encVarname(sign)=="Δ_U") {
+                        console.log(expr,encVarname(expr),err);
+                    }
+                   
                     continue;
                 }
     
@@ -296,7 +299,7 @@ function VariablesToTableInput() {
     i=0;
     for (var row of rows) {
         //console.log(row)
-        console.log(normalizeCategory(row.category),encVarname(row.sign));
+        //console.log(normalizeCategory(row.category),encVarname(row.sign));
 
         if(globalCalcScopes[normalizeCategory(row.category)] == undefined) {
             i++;
@@ -338,7 +341,7 @@ function encVarname(input) {
     output = "";
     //console.log("enc  in: " + input);
     //let re = new RegExp('\b(?!sqrt|frac\b)[A-Za-zα-ωΑ-Ω]{1,4}[0-9]{0,2}', 'g');
-    let re = /\b(?!sqrt|frac\b)[A-Za-zα-ωΑ-Ω]{1,10}[0-9]{0,5}/g;
+    let re = /\b(?!sqrt|frac|cos|sin|tan\b)[A-Za-zα-ωΑ-Ω]{1,10}[0-9]{0,5}/g;
     //let re = /(?!sqrt|frac\b)[A-Za-zα-ωΑ-Ω]{1,10}[0-9]{0,5}/g;
     input = input.replaceAll(re, '_$&');
     //console.log("enc out: " + input);

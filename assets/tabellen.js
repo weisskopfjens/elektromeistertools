@@ -1,407 +1,254 @@
 let werkstoffe = [{
     "Werkstoff": "Aluminium",
     "Dichte": "2,7",
-    "Schmelztemperatur": "660",
+    "Schmelztemperatur": "658",
     "Laengenausdehnungskoeffizient": "23,8",
-    "Spezifischer_Widerstand": "0,22",
-    "Leitfähigkeit": "35",
-    "Temperaturkoeffizient": "4"
+    "Spezifischer_Widerstand": "0,0278",
+    "Leitfähigkeit": "36",
+    "Temperaturkoeffizient": "0,004"
 },
 {
-    "Werkstoff": "AlCuMg1",
-    "Dichte": "2,8",
-    "Schmelztemperatur": "535-640",
-    "Laengenausdehnungskoeffizient": "22,8",
-    "Spezifischer_Widerstand": "",
-    "Leitfähigkeit": "18,5",
-    "Temperaturkoeffizient": "3,5"
-},
-{
-    "Werkstoff": "AlMgSi1",
+    "Werkstoff": "AlMgSi",
     "Dichte": "2,7",
-    "Schmelztemperatur": "600-640",
-    "Laengenausdehnungskoeffizient": "23,2",
-    "Spezifischer_Widerstand": "",
-    "Leitfähigkeit": "31",
-    "Temperaturkoeffizient": "3,5"
-},
-{
-    "Werkstoff": "AlMg5",
-    "Dichte": "2,63",
-    "Schmelztemperatur": "580-630",
-    "Laengenausdehnungskoeffizient": "23,5",
-    "Spezifischer_Widerstand": "",
-    "Leitfähigkeit": "16,5",
-    "Temperaturkoeffizient": "2,1"
-},
-{
-    "Werkstoff": "AlCuNi",
-    "Dichte": "2,8",
-    "Schmelztemperatur": "520-640",
+    "Schmelztemperatur": "620",
     "Laengenausdehnungskoeffizient": "23",
-    "Spezifischer_Widerstand": "",
-    "Leitfähigkeit": "22",
-    "Temperaturkoeffizient": ""
-},
-{
-    "Werkstoff": "Antimon",
-    "Dichte": "6,68",
-    "Schmelztemperatur": "630",
-    "Laengenausdehnungskoeffizient": "10,5",
-    "Spezifischer_Widerstand": "0,049",
-    "Leitfähigkeit": "2,56",
-    "Temperaturkoeffizient": "5,4"
-},
-{
-    "Werkstoff": "Beryllium",
-    "Dichte": "1,82",
-    "Schmelztemperatur": "1280",
-    "Laengenausdehnungskoeffizient": "12,3",
-    "Spezifischer_Widerstand": "0,52",
-    "Leitfähigkeit": "16,9",
-    "Temperaturkoeffizient": "10"
+    "Spezifischer_Widerstand": "0,0328",
+    "Leitfähigkeit": "30,5",
+    "Temperaturkoeffizient": "0,0036"
 },
 {
     "Werkstoff": "Blei",
     "Dichte": "11,34",
     "Schmelztemperatur": "327",
-    "Laengenausdehnungskoeffizient": "28,3",
-    "Spezifischer_Widerstand": "0,031",
-    "Leitfähigkeit": "4,82",
-    "Temperaturkoeffizient": "4,22"
-},
-{
-    "Werkstoff": "Bronze",
-    "Dichte": "8,73",
-    "Schmelztemperatur": "915-1040",
-    "Laengenausdehnungskoeffizient": "17,3",
-    "Spezifischer_Widerstand": "",
-    "Leitfähigkeit": "9",
-    "Temperaturkoeffizient": ""
+    "Laengenausdehnungskoeffizient": "29,4",
+    "Spezifischer_Widerstand": "0,208",
+    "Leitfähigkeit": "4,8",
+    "Temperaturkoeffizient": "0,00422"
 },
 {
     "Werkstoff": "Chrom",
     "Dichte": "7,19",
     "Schmelztemperatur": "1890",
     "Laengenausdehnungskoeffizient": "6,2",
-    "Spezifischer_Widerstand": "0,11",
+    "Spezifischer_Widerstand": "0,130",
     "Leitfähigkeit": "6,7",
     "Temperaturkoeffizient": ""
 },
 {
     "Werkstoff": "Eisen",
     "Dichte": "7,87",
-    "Schmelztemperatur": "1530",
-    "Laengenausdehnungskoeffizient": "11,7",
-    "Spezifischer_Widerstand": "0,11",
-    "Leitfähigkeit": "10,3",
-    "Temperaturkoeffizient": "6,57"
+    "Schmelztemperatur": "1539",
+    "Laengenausdehnungskoeffizient": "11,5",
+    "Spezifischer_Widerstand": "0,1",
+    "Leitfähigkeit": "10",
+    "Temperaturkoeffizient": "0,00657"
+},
+{
+    "Werkstoff": "Gusseisen",
+    "Dichte": "7,25",
+    "Schmelztemperatur": "1200",
+    "Laengenausdehnungskoeffizient": "10,5",
+    "Spezifischer_Widerstand": "",
+    "Leitfähigkeit": "",
+    "Temperaturkoeffizient": "0,005"
 },
 {
     "Werkstoff": "Gold",
     "Dichte": "19,32",
-    "Schmelztemperatur": "1064",
+    "Schmelztemperatur": "1063",
     "Laengenausdehnungskoeffizient": "14,2",
-    "Spezifischer_Widerstand": "0,031",
+    "Spezifischer_Widerstand": "0,022",
     "Leitfähigkeit": "45,7",
-    "Temperaturkoeffizient": "3,98"
-},
-{
-    "Werkstoff": "Grauguß",
-    "Dichte": "7,2",
-    "Schmelztemperatur": "1150-1300",
-    "Laengenausdehnungskoeffizient": "9",
-    "Spezifischer_Widerstand": "0,13",
-    "Leitfähigkeit": "44228",
-    "Temperaturkoeffizient": ""
-},
-{
-    "Werkstoff": "Indium",
-    "Dichte": "7,31",
-    "Schmelztemperatur": "156",
-    "Laengenausdehnungskoeffizient": "44",
-    "Spezifischer_Widerstand": "0,057",
-    "Leitfähigkeit": "12",
-    "Temperaturkoeffizient": "5,1"
+    "Temperaturkoeffizient": "0,00398"
 },
 {
     "Werkstoff": "Kadmium",
-    "Dichte": "8,65",
+    "Dichte": "8,64",
     "Schmelztemperatur": "321",
-    "Laengenausdehnungskoeffizient": "30,8",
-    "Spezifischer_Widerstand": "0,055",
-    "Leitfähigkeit": "14,6",
-    "Temperaturkoeffizient": "4,26"
+    "Laengenausdehnungskoeffizient": "29,4",
+    "Spezifischer_Widerstand": "0,077",
+    "Leitfähigkeit": "13",
+    "Temperaturkoeffizient": "0,0042"
 },
 {
     "Werkstoff": "Kobalt",
     "Dichte": "8,9",
-    "Schmelztemperatur": "1495",
-    "Laengenausdehnungskoeffizient": "12,3",
-    "Spezifischer_Widerstand": "0,1",
+    "Schmelztemperatur": "1490",
+    "Laengenausdehnungskoeffizient": "12,6",
+    "Spezifischer_Widerstand": "0,062",
     "Leitfähigkeit": "16,1",
-    "Temperaturkoeffizient": "6,58"
+    "Temperaturkoeffizient": "0,0066"
+},
+{
+    "Werkstoff": "Kohle",
+    "Dichte": "2,0",
+    "Schmelztemperatur": "3540",
+    "Laengenausdehnungskoeffizient": "6,0",
+    "Spezifischer_Widerstand": "100",
+    "Leitfähigkeit": "0,01",
+    "Temperaturkoeffizient": "-0,0005"
 },
 {
     "Werkstoff": "Kupfer",
-    "Dichte": "8,96",
-    "Schmelztemperatur": "1083",
-    "Laengenausdehnungskoeffizient": "16,2",
-    "Spezifischer_Widerstand": "0,092",
-    "Leitfähigkeit": "60",
-    "Temperaturkoeffizient": "4,31"
+    "Dichte": "8,9",
+    "Schmelztemperatur": "1085",
+    "Laengenausdehnungskoeffizient": "17",
+    "Spezifischer_Widerstand": "0,0178",
+    "Leitfähigkeit": "56",
+    "Temperaturkoeffizient": "0,0039"
 },
 {
     "Werkstoff": "Lithium",
-    "Dichte": "0,53",
-    "Schmelztemperatur": "186",
-    "Laengenausdehnungskoeffizient": "58",
-    "Spezifischer_Widerstand": "0,79",
-    "Leitfähigkeit": "11,8",
-    "Temperaturkoeffizient": "4,35"
+    "Dichte": "0,534",
+    "Schmelztemperatur": "179",
+    "Laengenausdehnungskoeffizient": "56",
+    "Spezifischer_Widerstand": "0,086",
+    "Leitfähigkeit": "11,6",
+    "Temperaturkoeffizient": "0,00435"
 },
 {
     "Werkstoff": "Magnesium",
     "Dichte": "1,74",
     "Schmelztemperatur": "650",
-    "Laengenausdehnungskoeffizient": "24,5",
-    "Spezifischer_Widerstand": "0,25",
-    "Leitfähigkeit": "22,2",
-    "Temperaturkoeffizient": "4,2"
+    "Laengenausdehnungskoeffizient": "26",
+    "Spezifischer_Widerstand": "0,044",
+    "Leitfähigkeit": "22,7",
+    "Temperaturkoeffizient": "0,0041"
 },
 {
-    "Werkstoff": "Messing",
-    "Dichte": "8,5",
-    "Schmelztemperatur": "910",
-    "Laengenausdehnungskoeffizient": "19",
-    "Spezifischer_Widerstand": "0,093",
-    "Leitfähigkeit": "16",
-    "Temperaturkoeffizient": "3,5"
+    "Werkstoff": "Mangan",
+    "Dichte": "7,43",
+    "Schmelztemperatur": "1245",
+    "Laengenausdehnungskoeffizient": "23",
+    "Spezifischer_Widerstand": "1,85",
+    "Leitfähigkeit": "0,54",
+    "Temperaturkoeffizient": "0,0035"
 },
 {
     "Werkstoff": "Molybdän",
     "Dichte": "10,2",
-    "Schmelztemperatur": "2625",
-    "Laengenausdehnungskoeffizient": "5",
-    "Spezifischer_Widerstand": "0,061",
-    "Leitfähigkeit": "19,4",
-    "Temperaturkoeffizient": "4,73"
-},
-{
-    "Werkstoff": "Monelmetall",
-    "Dichte": "8,58",
-    "Schmelztemperatur": "1320-1350",
-    "Laengenausdehnungskoeffizient": "14",
-    "Spezifischer_Widerstand": "0,12",
-    "Leitfähigkeit": "1,6",
-    "Temperaturkoeffizient": "0,19"
-},
-{
-    "Werkstoff": "Natrium",
-    "Dichte": "0,97",
-    "Schmelztemperatur": "98",
-    "Laengenausdehnungskoeffizient": "72",
-    "Spezifischer_Widerstand": "0,295",
-    "Leitfähigkeit": "23,8",
-    "Temperaturkoeffizient": "5,5"
+    "Schmelztemperatur": "2620",
+    "Laengenausdehnungskoeffizient": "5,1",
+    "Spezifischer_Widerstand": "0,047",
+    "Leitfähigkeit": "21",
+    "Temperaturkoeffizient": "0,0047"
 },
 {
     "Werkstoff": "Nickel",
-    "Dichte": "8,9",
-    "Schmelztemperatur": "1455",
-    "Laengenausdehnungskoeffizient": "13,3",
-    "Spezifischer_Widerstand": "0,105",
-    "Leitfähigkeit": "14,6",
-    "Temperaturkoeffizient": "6,75"
-},
-{
-    "Werkstoff": "Niob",
-    "Dichte": "8,57",
-    "Schmelztemperatur": "2415",
-    "Laengenausdehnungskoeffizient": "7",
-    "Spezifischer_Widerstand": "0,0065",
-    "Leitfähigkeit": "7,7",
-    "Temperaturkoeffizient": ""
-},
-{
-    "Werkstoff": "Osmium",
-    "Dichte": "22,5",
-    "Schmelztemperatur": "2700",
-    "Laengenausdehnungskoeffizient": "4,6",
-    "Spezifischer_Widerstand": "0,031",
-    "Leitfähigkeit": "10,4",
-    "Temperaturkoeffizient": "4,45"
+    "Dichte": "8,85",
+    "Schmelztemperatur": "1452",
+    "Laengenausdehnungskoeffizient": "13,0",
+    "Spezifischer_Widerstand": "0,095",
+    "Leitfähigkeit": "10,5",
+    "Temperaturkoeffizient": "0,0055"
 },
 {
     "Werkstoff": "Platin",
-    "Dichte": "21,45",
-    "Schmelztemperatur": "1774",
-    "Laengenausdehnungskoeffizient": "8,9",
-    "Spezifischer_Widerstand": "0,032",
+    "Dichte": "21,5",
+    "Schmelztemperatur": "1770",
+    "Laengenausdehnungskoeffizient": "9,0",
+    "Spezifischer_Widerstand": "0,098",
     "Leitfähigkeit": "10,2",
-    "Temperaturkoeffizient": "3,92"
+    "Temperaturkoeffizient": "0,0038"
 },
 {
     "Werkstoff": "Quecksilber",
-    "Dichte": "13,55",
+    "Dichte": "13,5",
     "Schmelztemperatur": "-38,9",
     "Laengenausdehnungskoeffizient": "1823",
-    "Spezifischer_Widerstand": "0,033",
-    "Leitfähigkeit": "1,06",
-    "Temperaturkoeffizient": "1"
-},
-{
-    "Werkstoff": "Rotguss",
-    "Dichte": "8,7",
-    "Schmelztemperatur": "960",
-    "Laengenausdehnungskoeffizient": "17",
-    "Spezifischer_Widerstand": "",
-    "Leitfähigkeit": "9",
-    "Temperaturkoeffizient": ""
+    "Spezifischer_Widerstand": "0,9406",
+    "Leitfähigkeit": "1,063",
+    "Temperaturkoeffizient": "0,0009"
 },
 {
     "Werkstoff": "Silber",
-    "Dichte": "10,49",
+    "Dichte": "10,5",
     "Schmelztemperatur": "960",
-    "Laengenausdehnungskoeffizient": "19,7",
-    "Spezifischer_Widerstand": "0,056",
-    "Leitfähigkeit": "63",
-    "Temperaturkoeffizient": "4,1"
+    "Laengenausdehnungskoeffizient": "19,3",
+    "Spezifischer_Widerstand": "0,0167",
+    "Leitfähigkeit": "60",
+    "Temperaturkoeffizient": "0,0041"
 },
 {
     "Werkstoff": "Stahl C 15",
     "Dichte": "7,85",
     "Schmelztemperatur": "1510",
-    "Laengenausdehnungskoeffizient": "11,1",
+    "Laengenausdehnungskoeffizient": "11,5",
     "Spezifischer_Widerstand": "0,11",
     "Leitfähigkeit": "9,3",
-    "Temperaturkoeffizient": "5,7"
+    "Temperaturkoeffizient": "0,0057"
 },
 {
     "Werkstoff": "Stahl C 35",
     "Dichte": "7,84",
     "Schmelztemperatur": "1490",
-    "Laengenausdehnungskoeffizient": "11,1",
-    "Spezifischer_Widerstand": "0,11",
+    "Laengenausdehnungskoeffizient": "11,5",
+    "Spezifischer_Widerstand": "0,116",
     "Leitfähigkeit": "8,6",
-    "Temperaturkoeffizient": "5,2"
+    "Temperaturkoeffizient": "0,0052"
 },
 {
     "Werkstoff": "Stahl C 60",
     "Dichte": "7,83",
     "Schmelztemperatur": "1470",
-    "Laengenausdehnungskoeffizient": "11,1",
-    "Spezifischer_Widerstand": "0,11",
+    "Laengenausdehnungskoeffizient": "11,5",
+    "Spezifischer_Widerstand": "0,127",
     "Leitfähigkeit": "7,9",
-    "Temperaturkoeffizient": "4,7"
-},
-{
-    "Werkstoff": "41Cr4",
-    "Dichte": "7,84",
-    "Schmelztemperatur": "1490",
-    "Laengenausdehnungskoeffizient": "11",
-    "Spezifischer_Widerstand": "0,11",
-    "Leitfähigkeit": "8",
-    "Temperaturkoeffizient": ""
-},
-{
-    "Werkstoff": "X10Cr13",
-    "Dichte": "7,75",
-    "Schmelztemperatur": "1500",
-    "Laengenausdehnungskoeffizient": "10",
-    "Spezifischer_Widerstand": "0,11",
-    "Leitfähigkeit": "1,7",
-    "Temperaturkoeffizient": ""
-},
-{
-    "Werkstoff": "X12CrNi188",
-    "Dichte": "7",
-    "Schmelztemperatur": "1400",
-    "Laengenausdehnungskoeffizient": "16",
-    "Spezifischer_Widerstand": "0,12",
-    "Leitfähigkeit": "1,3",
-    "Temperaturkoeffizient": ""
-},
-{
-    "Werkstoff": "36% Ni-Stahl",
-    "Dichte": "8,13",
-    "Schmelztemperatur": "1450",
-    "Laengenausdehnungskoeffizient": "0,9",
-    "Spezifischer_Widerstand": "0,123",
-    "Leitfähigkeit": "",
-    "Temperaturkoeffizient": ""
+    "Temperaturkoeffizient": "0,0047"
 },
 {
     "Werkstoff": "Tantal",
-    "Dichte": "16,6",
-    "Schmelztemperatur": "3000",
-    "Laengenausdehnungskoeffizient": "6,6",
-    "Spezifischer_Widerstand": "0,036",
-    "Leitfähigkeit": "8,1",
+    "Dichte": "16,7",
+    "Schmelztemperatur": "3030",
+    "Laengenausdehnungskoeffizient": "6,5",
+    "Spezifischer_Widerstand": "0,15",
+    "Leitfähigkeit": "6,67",
     "Temperaturkoeffizient": "3,47"
 },
 {
     "Werkstoff": "Titan",
     "Dichte": "4,54",
-    "Schmelztemperatur": "1800",
-    "Laengenausdehnungskoeffizient": "10,8",
-    "Spezifischer_Widerstand": "0,126",
+    "Schmelztemperatur": "1670",
+    "Laengenausdehnungskoeffizient": "8,4",
+    "Spezifischer_Widerstand": "0,8",
     "Leitfähigkeit": "1,25",
-    "Temperaturkoeffizient": "5,46"
-},
-{
-    "Werkstoff": "Vanadium",
-    "Dichte": "6",
-    "Schmelztemperatur": "1735",
-    "Laengenausdehnungskoeffizient": "8,5",
-    "Spezifischer_Widerstand": "0,12",
-    "Leitfähigkeit": "3,84",
-    "Temperaturkoeffizient": ""
+    "Temperaturkoeffizient": "0,00546"
 },
 {
     "Werkstoff": "Wismut",
     "Dichte": "9,8",
-    "Schmelztemperatur": "271",
-    "Laengenausdehnungskoeffizient": "12,4",
-    "Spezifischer_Widerstand": "0,034",
+    "Schmelztemperatur": "270",
+    "Laengenausdehnungskoeffizient": "13,4",
+    "Spezifischer_Widerstand": "1,07",
     "Leitfähigkeit": "0,94",
-    "Temperaturkoeffizient": "4,45"
+    "Temperaturkoeffizient": "0,0045"
 },
 {
     "Werkstoff": "Wolfram",
     "Dichte": "19,3",
-    "Schmelztemperatur": "3380",
+    "Schmelztemperatur": "3370",
     "Laengenausdehnungskoeffizient": "4,5",
-    "Spezifischer_Widerstand": "0,032",
+    "Spezifischer_Widerstand": "0,055",
     "Leitfähigkeit": "18,2",
-    "Temperaturkoeffizient": "4,82"
+    "Temperaturkoeffizient": "0,0046"
 },
 {
     "Werkstoff": "Zink",
     "Dichte": "7,14",
     "Schmelztemperatur": "419",
     "Laengenausdehnungskoeffizient": "29,8",
-    "Spezifischer_Widerstand": "0,091",
-    "Leitfähigkeit": "16,9",
-    "Temperaturkoeffizient": "4,2"
+    "Spezifischer_Widerstand": "0,0625",
+    "Leitfähigkeit": "16",
+    "Temperaturkoeffizient": "0,0042"
 },
 {
     "Werkstoff": "Zinn",
-    "Dichte": "7,3",
+    "Dichte": "7,28",
     "Schmelztemperatur": "232",
-    "Laengenausdehnungskoeffizient": "20,5",
-    "Spezifischer_Widerstand": "0,054",
+    "Laengenausdehnungskoeffizient": "27",
+    "Spezifischer_Widerstand": "0,115",
     "Leitfähigkeit": "8,7",
-    "Temperaturkoeffizient": "4,63"
-},
-{
-    "Werkstoff": "Zirkon",
-    "Dichte": "6,5",
-    "Schmelztemperatur": "1850",
-    "Laengenausdehnungskoeffizient": "10",
-    "Spezifischer_Widerstand": "0,066",
-    "Leitfähigkeit": "2,44",
-    "Temperaturkoeffizient": "4,4"
+    "Temperaturkoeffizient": "0,00463"
 }
 ];
 

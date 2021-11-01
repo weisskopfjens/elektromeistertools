@@ -416,6 +416,46 @@
                     "adddescription": '<div>H-Band Oszillator 10600MHz</div>',
                     "unit": "Mhz"
                 }
+            }, 
+            "Leitungsberechnung AC": {
+                "ΔU": {
+                    "expression": ["( 2*I*l * cos(0.5) ) / (γ*A)"],
+                    "description": "Spannungsfall",
+                    "unit": "V"
+                },
+                "I": {
+                    "expression": [],
+                    "description": "Leiterstrom",
+                    "unit": "A"
+                },
+                "l": {
+                    "expression": [],
+                    "description": "Leiterlänge",
+                    "unit": "m"
+                },
+                "ϕ": {
+                    "expression": [],
+                    "description": "Phasenverschiebungswinkel",
+                    "unit": "°"
+                },
+                "γ": {
+                    "expression": ["1/ρ"],
+                    "description": "elektrische Leitfähigkeit",
+                    "unit": "m/Ω*mm²"
+                },
+                "ρ": {
+                    "expression": ["1/γ"],
+                    "description": "spezifischer Widerstand",
+                    "unit": "Ω・mm²/m",
+                    "table": werkstoffe,
+                    "tablecolumn1": "Werkstoff",
+                    "tablecolumn2": "Spezifischer_Widerstand"
+                },
+                "A": {
+                    "expression": [],
+                    "description": "Leiterquerschnitt",
+                    "unit": "mm²"
+                }
             }
         };
 
