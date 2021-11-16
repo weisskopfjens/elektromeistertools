@@ -10,7 +10,7 @@
 \usepackage{color}
 \usepackage{hyperref}
 
-\DeclareMathSizes{12}{14}{14}{14}
+\DeclareMathSizes{12}{12}{12}{12}
 \author{Jens Weißkopf}
 \title{Meister Vorbereitungskurs Zusammenfassung}
 \begin{document}
@@ -227,6 +227,24 @@ SIN\> COS\> TAN\> COT\\
 G = Gegenkathete\\
 A = Ankathete\\
 H = Hypotenuse
+\subsection{Pythagoras}
+$c=\sqrt{a^2+b^2}\\
+a=\sqrt{c^2-b^2}\\
+b=\sqrt{c^2-a^2}\\$
+\pagebreak
+\subsection{Polarkoordinaten / kartesischen Koordinaten}
+\includegraphics[width=6cm]{polarkoordinaten.png}\\
+$ X=r(\varphi) \cdot cos(\varphi)\\
+Y=r(\varphi) \cdot sin(\varphi)\\
+r=\sqrt{X^2+Y^2}\\
+tan(\varphi)=\frac{Y}{X}\\$
+\includegraphics[width=6cm]{pol_add.png}\\
+Rechnet man die Polarkoordinaten in kartesischen Koordinaten um, so lässt sich die jeweilige X Koordinate und Y Koordinate addieren. Das Ergenis lässt sich mit der tan Funktion einfach wieder in Polarkoordinaten umrechnen.\\
+Mit diesem Verfahren lässt sich relativ einfach der Nennleiterstrom in einem unsymetrisch belasteten Drehstromsystem berechnen. 
+\pagebreak
+\subsection{Binomische Formeln}
+$(x+y)^2=x^2+2xy+y^2\\
+(x-y)2=x^2-2xy+y^2$
 \subsection{Dezimale Vielfache}
 \begin{tabular}{|l|l|l|}
 \hline
@@ -284,12 +302,10 @@ Tera&$T$&$10^{12}$\\
 \end{figure}
 \begin{description}
 \item X Achse (Abszisse) $\Rightarrow$ Realteil a
-\item Y Aches (Ordinate) $\Rightarrow$ Imaginärteil b (i Taste auf dem Taschenrechner)
-\item $\varphi$ = Winkel zwischen a und b ($\angle$ Taste auf dem Taschenrechner in RAD) 
+\item Y Aches (Ordinate) $\Rightarrow$ Imaginärteil b (i [ENG] Taste auf dem Taschenrechner)
+\item $\varphi$ = Winkel zwischen a und b ($\angle$ Taste auf dem Taschenrechner in RAD)
+\item Umrechnung zwischen Komplexen Zahlen und Polarkoordinaten mit Taste [OPTN] danach Pfeil nach unten und $r\angle0$
 \end{description}
-
-
-
 \pagebreak
 \section{Physik}
 \subsection{Ohmisches Gesetz}
@@ -363,13 +379,13 @@ $\Theta = l \cdot N~~~~\Theta \widehat{=} Theta$
 \item $X_{L} = 2 \cdot \pi \cdot f \cdot L$
 \item $X_{C} = \frac{1}{2 \cdot \pi \cdot f \cdot C} $
 \end{description}
+
 \subsection{Drehstrom}
 \begin{description}
 \item $S = U \cdot I \cdot \sqrt{3} \cdot cos \varphi$
 \item $P = U \cdot I \cdot cos \varphi$
 \end{description}
 \subsection{Kondensator}
-
 
 
 \end{document}

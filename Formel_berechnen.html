@@ -67,6 +67,7 @@
 	</div>
 
 	<script>
+		//delete math.Unit
 		const expr = document.getElementById('expr')
 		const pretty = document.getElementById('pretty')
 		const result = document.getElementById('result')
@@ -83,7 +84,8 @@
 		}
 
 		// initialize with an example expression
-		expr.value = 'R=1000ohm;I=16A;R*I'
+		//expr.value = 'R=1000ohm;I=16A;R*I'
+		expr.value = 'R=1000;I=16;R*I'
 		
 		pretty.innerHTML = '';
 		pretty.appendChild(mj(math.parse(expr.value).toTex({

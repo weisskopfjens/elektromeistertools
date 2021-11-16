@@ -33,11 +33,17 @@ function generateForm(id, formulas, calcScope) {
     table.setAttribute("data-show-pagination-switch", "true");
     table.setAttribute("data-pagination", "true");
     table.setAttribute("data-page-list", "[25, 50, 100, all]");
-    table.setAttribute("data-filter-control","true");
-    table.setAttribute("data-show-export","true");
+    table.setAttribute("data-filter-control", "true");
+    table.setAttribute("data-show-export", "true");
 
     form.appendChild(table);
     maindiv.appendChild(form);
+
+    resultdiv = document.createElement("div");
+    resultdiv.setAttribute("class", "p-3 border bg-light");
+    resultdiv.setAttribute("id", "result");
+    maindiv.appendChild(resultdiv)
+
     var $table = $('#table')
     $table.bootstrapTable('destroy').bootstrapTable({
         height: 550,
@@ -73,14 +79,14 @@ function generateForm(id, formulas, calcScope) {
                 filterControl: 'select',
                 sortable: true
             },
-            {
+            /*{
                 title: 'Ergebnis',
                 field: 'result',
                 align: 'center',
                 valign: 'middle',
                 sortable: true
 
-            },
+            },*/
             {
                 title: 'Einheit',
                 field: 'unit',
@@ -122,7 +128,7 @@ function detailFormatter(index, row) {
     formulardiv.setAttribute("class", "container px-4");
     formularrowdiv = document.createElement("div");
     formularrowdiv.setAttribute("class", "row gx-5");
-    
+
     for (let expr of formulas[row.category][row.sign].expression) {
         try {
             node = math.parse(encVarname(expr), calcScope);
@@ -142,7 +148,7 @@ function detailFormatter(index, row) {
             formularhintcol.setAttribute("class", "col");
             formularhint = document.createElement("div");
             formularhint.setAttribute("class", "p-1 border bg-light");
-            formularhint.innerHTML = mj( decVarname(latex) ).outerHTML;
+            formularhint.innerHTML = mj(decVarname(latex)).outerHTML;
             //console.log(latex,decVarname(latex))
             formularhintcol.appendChild(formularhint);
             formularrowdiv.appendChild(formularhintcol);
@@ -152,7 +158,7 @@ function detailFormatter(index, row) {
         }
         formulardiv.appendChild(formularrowdiv);
     }
-    if(formulas[row.category][row.sign].adddescription!=undefined) {
+    if (formulas[row.category][row.sign].adddescription != undefined) {
         formularrowdiv2 = document.createElement("div");
         formularrowdiv2.setAttribute("class", "row gx-5");
         formularhintcol2 = document.createElement("div");
@@ -171,7 +177,7 @@ function inputFormatter(value, row, index) {
     input.setAttribute("id", "idinput" + index);
     input.setAttribute("value", value);
     input.setAttribute("tindex", index);
-    input.setAttribute("onchange",'inputValue("input",this)');
+    input.setAttribute("onchange", 'inputValue("input",this)');
     if (row.input != "") {
         input.readOnly = true;
     }
@@ -181,11 +187,11 @@ function inputFormatter(value, row, index) {
     if (formulas[row.category][row.sign].table !== undefined) {
         select = document.createElement("select");
         select.setAttribute("class", "form-select");
-        select.setAttribute("onchange", 'setValueFromSelect(this,"idinput'+index+'");inputValue("input", document.getElementById("idinput'+index+'"));');
+        select.setAttribute("onchange", 'setValueFromSelect(this,"idinput' + index + '");inputValue("input", document.getElementById("idinput' + index + '"));');
         select.setAttribute("aria-label", "Default select example");
-        select.setAttribute("id", "idselect"  + index);
+        select.setAttribute("id", "idselect" + index);
         if (row.input != "") {
-            select.setAttribute("disabled","");
+            select.setAttribute("disabled", "");
         }
         select.innerHTML = optionsFromTable(formulas[row.category][row.sign].table, formulas[row.category][row.sign].tablecolumn1, formulas[row.category][row.sign].tablecolumn2);
         selectformtext = document.createElement("div");
@@ -207,38 +213,38 @@ function doCalculation() {
 
 // Set bootstrap table value
 function inputValue(field, inputelement) {
+    value = inputelement.value.replaceAll(",", ".");
     $('#table').bootstrapTable('updateCell', {
         index: parseInt(inputelement.getAttribute("tindex"), 10),
         field: field,
-        value: inputelement.value
+        value: value
     });
     doCalculation();
 }
 
 function normalizeCategory(category) {
-    output = category.replaceAll(" ","");
+    output = category.replaceAll(" ", "");
     return output;
 }
 
 function calculateFormulars(resultid, formulas) {
-    const result = document.getElementById(resultid);
-    result.innerHTML = '';
+    //const result = document.getElementById(resultid);
+    //result.innerHTML = '';
     for (var categoryname in formulas) {
         for (var sign in formulas[categoryname]) {
             // jump over description
             if (sign === 'description') {
                 continue;
             }
-            if (globalCalcScopes[normalizeCategory(categoryname)]!=undefined) {
+            if (globalCalcScopes[normalizeCategory(categoryname)] != undefined) {
                 if (globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)] != undefined) {
-                    v=globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)]
-                    if (v!="") {
+                    v = globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)]
+                    if (v != "") {
                         continue;
                     }
                 }
             }
-           
-            
+
             obj = formulas[categoryname][sign];
             let parenthesis = 'keep'
             let implicit = 'hide'
@@ -247,13 +253,10 @@ function calculateFormulars(resultid, formulas) {
                     node = math.parse(encVarname(expr), globalCalcScopes[normalizeCategory(categoryname)]);
                     globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)] = math.format(node.compile().evaluate(globalCalcScopes[normalizeCategory(categoryname)]));
                 } catch (err) {
-                    if(encVarname(sign)=="Δ_U") {
-                        console.log(expr,encVarname(expr),err);
-                    }
-                   
+
                     continue;
                 }
-    
+
                 try {
                     const latex = node ? node.toTex({
                         parenthesis: parenthesis,
@@ -262,7 +265,7 @@ function calculateFormulars(resultid, formulas) {
                     MathJax.typesetClear();
                     result.innerHTML += sign + " = ";
                     result.appendChild(mj(decVarname(latex)));
-                    result.innerHTML += " = " + globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)]+ formulas[categoryname][sign]["unit"] + " [" + formulas[
+                    result.innerHTML += " = " + globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)] + formulas[categoryname][sign]["unit"] + " [" + formulas[
                             categoryname][sign]
                         .description +
                         ']<br><hr>'
@@ -277,7 +280,7 @@ function TableInputToVariables() {
     var $table = $('#table');
     rows = $table.bootstrapTable('getData');
     for (var row of rows) {
-        if (row.input=="") {
+        if (row.input == "") {
             continue;
         }
         if (globalCalcScopes[normalizeCategory(row.category)] == undefined) {
@@ -290,41 +293,41 @@ function TableInputToVariables() {
         }
         globalCalcScopes[normalizeCategory(row.category)][encVarname(row.sign)] = row.input;
     }
-    console.log("T2V",globalCalcScopes);
+    console.log("T2V", globalCalcScopes);
 }
 
 function VariablesToTableInput() {
     var $table = $('#table');
     rows = $table.bootstrapTable('getData');
-    i=0;
+    i = 0;
     for (var row of rows) {
         //console.log(row)
         //console.log(normalizeCategory(row.category),encVarname(row.sign));
 
-        if(globalCalcScopes[normalizeCategory(row.category)] == undefined) {
+        if (globalCalcScopes[normalizeCategory(row.category)] == undefined) {
             i++;
             continue;
         }
         newvalue = globalCalcScopes[normalizeCategory(row.category)][encVarname(row.sign)];
 
-        if(newvalue == undefined) {
+        if (newvalue == undefined) {
             i++;
             continue;
         }
         $('#table').bootstrapTable('updateCell', {
             index: i,
             field: "input",
-            value: newvalue
+            value: parseFloat(newvalue).toFixed(4)
         });
         i++;
-    }   
-    console.log("V2T",globalCalcScopes);
+    }
+    console.log("V2T", globalCalcScopes);
 }
 
 function ResetForm() {
     var $table = $('#table');
     rows = $table.bootstrapTable('getData');
-    i=0;
+    i = 0;
     for (var row of rows) {
         $('#table').bootstrapTable('updateCell', {
             index: i,
@@ -333,31 +336,105 @@ function ResetForm() {
         });
         i++;
     }
-    globalCalcScopes={};
+    globalCalcScopes = {};
     TableInputToVariables();
+    var $result = $('#result');
+    result.innerHTML="";
+
 }
 
 function encVarname(input) {
-    output = "";
-    //console.log("enc  in: " + input);
-    //let re = new RegExp('\b(?!sqrt|frac\b)[A-Za-zα-ωΑ-Ω]{1,4}[0-9]{0,2}', 'g');
-    let re = /\b(?!sqrt|frac|cos|sin|tan\b)[A-Za-zα-ωΑ-Ω]{1,10}[0-9]{0,5}/g;
-    //let re = /(?!sqrt|frac\b)[A-Za-zα-ωΑ-Ω]{1,10}[0-9]{0,5}/g;
-    input = input.replaceAll(re, '_$&');
-    //console.log("enc out: " + input);
+    //let re = /\b(?!sqrt|frac|cos|sin|tan|pi|acos|rad|deg\b)[A-Za-zα-ωΑ-Ω]{1,10}[0-9]{0,5}/g;
+    //input = input.replaceAll(re, '_$&');
     return input;
 }
 
 function decVarname(input) {
-    //console.log("dec  in: " + input);
-    //let re = new RegExp('{\\\\_{1}', 'g');
-    let re = /{\\\_{1}/g;
+    /*let re = /{\\\_{1}/g;
     input = input.replaceAll(re, '{');
-    //let re2 = new RegExp('_{1}', 'g');
     let re2 = /\\\_{1}/g;
     input = input.replaceAll(re2, ' ');
     let re3 = /_{1}/g;
-    input = input.replaceAll(re3, '');
-    //console.log("dec out: " + input);
+    input = input.replaceAll(re3, '');*/
     return input;
+}
+
+// ##################################################################
+//
+// Add config for angle format to mathjs
+//
+// ##################################################################
+
+// our extended configuration options
+const config = {
+    angles: 'deg' // 'rad', 'deg', 'grad'
+}
+
+function AddAngleConfig() {
+
+    let replacements = {}
+ 
+    // create trigonometric functions replacing the input depending on angle config
+    const fns1 = ['sin', 'cos', 'tan', 'sec', 'cot', 'csc']
+    fns1.forEach(function (name) {
+        const fn = math[name] // the original function
+
+        const fnNumber = function (x) {
+            // convert from configured type of angles to radians
+            switch (config.angles) {
+                case 'deg':
+                    return fn(x / 360 * 2 * Math.PI)
+                case 'grad':
+                    return fn(x / 400 * 2 * Math.PI)
+                default:
+                    return fn(x)
+            }
+        }
+
+        // create a typed-function which check the input types
+        replacements[name] = math.typed(name, {
+            'number': fnNumber,
+            'Array | Matrix': function (x) {
+                return math.map(x, fnNumber)
+            }
+        })
+    })
+
+    // create trigonometric functions replacing the output depending on angle config
+    const fns2 = ['asin', 'acos', 'atan', 'atan2', 'acot', 'acsc', 'asec']
+    fns2.forEach(function (name) {
+        const fn = math[name] // the original function
+
+        const fnNumber = function (x) {
+            const result = fn(x)
+
+            if (typeof result === 'number') {
+                // convert to radians to configured type of angles
+                switch (config.angles) {
+                    case 'deg':
+                        return result / 2 / Math.PI * 360
+                    case 'grad':
+                        return result / 2 / Math.PI * 400
+                    default:
+                        return result
+                }
+            }
+
+            return result
+        }
+
+        // create a typed-function which check the input types
+        replacements[name] = math.typed(name, {
+            'number': fnNumber,
+            'Array | Matrix': function (x) {
+                return math.map(x, fnNumber)
+            }
+        })
+    })
+
+    // import all replacements into math.js, override existing trigonometric functions
+    math.import(replacements, {
+        override: true
+    })
+
 }

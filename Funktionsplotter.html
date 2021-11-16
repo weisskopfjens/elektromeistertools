@@ -21,7 +21,7 @@
         <input type="number" class="form-control" id="rangeto" value="10" />
 
         <label class="form-label" for="increment">Inkrement:</label>
-        <input type="number" class="form-control" id="increment" value="0.1" />
+        <input type="number" class="form-control" id="increment" step="0.01" value="0.01" />
 
         <label class="form-label" for="eq">Gleichung:</label>
         <input type="text" class="form-control" id="eq" value="4 * sin(x) + 5 * cos(x/2)" />
@@ -69,6 +69,11 @@
         }
 
         document.getElementById('form').onsubmit = function (event) {
+            event.preventDefault()
+            draw()
+        }
+
+        document.getElementById('form').onchange = function (event) {
             event.preventDefault()
             draw()
         }

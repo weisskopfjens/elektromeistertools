@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.10.13)  19 OCT 2021 07:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.11.9)  15 NOV 2021 18:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -324,13 +324,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
  [3] [4]
 [5] [6]
-<bild1.jpg, id=287, 750.805pt x 508.90125pt>
+<bild1.jpg, id=302, 750.805pt x 508.90125pt>
 File: bild1.jpg Graphic file (type jpg)
 <use bild1.jpg>
 Package pdftex.def Info: bild1.jpg  used on input line 135.
 (pdftex.def)             Requested size: 350.99762pt x 237.91013pt.
  [7 <./bild1.jpg>] [8]
-<bild2.jpg, id=298, 710.655pt x 772.8875pt>
+<bild2.jpg, id=314, 710.655pt x 772.8875pt>
 File: bild2.jpg Graphic file (type jpg)
 <use bild2.jpg>
 Package pdftex.def Info: bild2.jpg  used on input line 168.
@@ -341,7 +341,7 @@ Package hyperref Warning: Difference (2) between bookmark levels is greater
 (hyperref)                than one, level fixed on input line 197.
 
 [10]
-<bild3.png, id=309, 524.96124pt x 277.035pt>
+<bild3.png, id=324, 524.96124pt x 277.035pt>
 File: bild3.png Graphic file (type png)
 <use bild3.png>
 Package pdftex.def Info: bild3.png  used on input line 216.
@@ -351,32 +351,42 @@ Underfull \hbox (badness 10000) in paragraph at lines 217--217
 []\T1/cmr/m/n/12 Abbildung 3: []Rechtwinkliges
  []
 
-[11 <./bild3.png>] [12]
-<bild5.png, id=320, 803.0pt x 594.22pt>
+[11 <./bild3.png>]
+<polarkoordinaten.png, id=331, 354.32375pt x 317.185pt>
+File: polarkoordinaten.png Graphic file (type png)
+<use polarkoordinaten.png>
+Package pdftex.def Info: polarkoordinaten.png  used on input line 236.
+(pdftex.def)             Requested size: 170.71652pt x 152.823pt.
+<pol_add.png, id=333, 317.185pt x 317.185pt>
+File: pol_add.png Graphic file (type png)
+<use pol_add.png>
+Package pdftex.def Info: pol_add.png  used on input line 241.
+(pdftex.def)             Requested size: 170.71652pt x 170.72075pt.
+ [12 <./polarkoordinaten.png> <./pol_add.png>] [13]
+<bild5.png, id=345, 803.0pt x 594.22pt>
 File: bild5.png Graphic file (type png)
 <use bild5.png>
-Package pdftex.def Info: bild5.png  used on input line 281.
+Package pdftex.def Info: bild5.png  used on input line 299.
 (pdftex.def)             Requested size: 350.99762pt x 259.74393pt.
- [13 <./bild5.png>] [14] [15]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 375.
- [16]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 375.
-
-(./HWK_Zusammenfassung.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 375.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 375.
+ [14 <./bild5.png>] [15] [16]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 391.
+ [17]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 391.
+ (./HWK_Zusammenfassung.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 391.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 391.
 Package rerunfilecheck Info: File `HWK_Zusammenfassung.out' has not changed.
-(rerunfilecheck)             Checksum: 5411550DF4A195F9E29E44C4A4BFC1EE;3473.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 375.
+(rerunfilecheck)             Checksum: 875AE5BA546E902F286FAEC24083DDAA;3694.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 391.
  ) 
 Here is how much of TeX's memory you used:
- 6840 strings out of 483089
- 100971 string characters out of 5962867
- 363561 words of memory out of 5000000
- 21677 multiletter control sequences out of 15000+600000
- 541604 words of font info for 47 fonts, out of 8000000 for 9000
- 36 hyphenation exceptions out of 8191
- 34i,8n,30p,237b,478s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 6858 strings out of 483130
+ 101278 string characters out of 5963883
+ 363411 words of memory out of 5000000
+ 21682 multiletter control sequences out of 15000+600000
+ 542219 words of font info for 49 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 34i,8n,30p,260b,478s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/jens/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600p
 k> </home/jens/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600p
 k> </home/jens/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600p
@@ -390,10 +400,10 @@ e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on HWK_Zusammenfassung.pdf (16 pages, 312405 bytes).
+Output written on HWK_Zusammenfassung.pdf (17 pages, 352883 bytes).
 PDF statistics:
- 655 PDF objects out of 1000 (max. 8388607)
- 369 compressed objects within 4 object streams
- 71 named destinations out of 1000 (max. 500000)
- 413 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 686 PDF objects out of 1000 (max. 8388607)
+ 389 compressed objects within 4 object streams
+ 75 named destinations out of 1000 (max. 500000)
+ 447 words of extra memory for PDF output out of 10000 (max. 10000000)
 

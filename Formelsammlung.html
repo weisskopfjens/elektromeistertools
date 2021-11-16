@@ -31,11 +31,13 @@
             Formelsammlung
         </h1>
         <div id="inputarea"></div>
-        <div id="result" class="p-3 border bg-light"></div>
     </div>
 
     <script>
         //delete math.Unit.UNITS.g
+        delete math.Unit
+        AddAngleConfig();
+
         var calcScope = {}
 
         let formulas = {
@@ -78,7 +80,8 @@
                     "unit": "A"
                 },
                 "P": {
-                    "expression": ["U*I*cos(ϕ)"],
+                    //"expression": ["U*I*cos(pi/180*φ)"],
+                    "expression": ["U*I*cos(φ)"],
                     "description": "Wirkleistung",
                     "unit": "W"
                 },
@@ -87,12 +90,12 @@
                     "description": "Scheinleistung",
                     "unit": "VA"
                 },
-                "Z": {
-                    "expression": ["sqrt(R^2/X^2)"],
+                "Q": {
+                    "expression": ["sqrt(R^2/X^2)","U*I*sin(φ)"],
                     "description": "Blindleistung",
                     "unit": "var"
                 },
-                "ϕ": {
+                "φ": {
                     "expression": ["acos(R/Z)"],
                     "description": "Phasenverschiebungswinkel",
                     "unit": "°"
@@ -100,32 +103,32 @@
             },
             "Drehstrom": {
                 "U": {
-                    "expression": ["Z*I","Q/sqrt(3)*I*sin(ϕ)","S/sqrt(3)*I"],
+                    "expression": ["Z*I","Q/sqrt(3)*I*sin(φ)","S/sqrt(3)*I"],
                     "description": "Spannung Drehstrom",
                     "unit": "V"
                 },
                 "I": {
-                    "expression": ["Q/sqrt(3)*U*sin(ϕ)","P/sqrt(3)*U*cos(ϕ)","S/sqrt(3)*U"],
+                    "expression": ["Q/sqrt(3)*U*sin(φ)","P/sqrt(3)*U*cos(φ)","S/sqrt(3)*U"],
                     "description": "Strom Drehstrom",
                     "unit": "A"
                 },
                 "S": {
-                    "expression": ["U*I*sqrt(3)","Q/sin(ϕ)","P/cos(ϕ)"],
+                    "expression": ["U*I*sqrt(3)","Q/sin(φ)","P/cos(φ)"],
                     "description": "Scheinleistung Drehstrom",
                     "unit": "VA"
                 },
                 "P": {
-                    "expression": ["U*I*sqrt(3)*cos(ϕ)","S*cos(ϕ)"],
+                    "expression": ["U*I*sqrt(3)*cos(φ)","S*cos(φ)"],
                     "description": "Wirkleistung Drehstrom",
                     "unit": "W"
                 },
                 "Q": {
-                    "expression": ["S*sin(ϕ)","sqrt(3)*U*I*sin(ϕ)"],
+                    "expression": ["S*sin(φ)","sqrt(3)*U*I*sin(φ)"],
                     "description": "Blindleistung Drehstrom",
                     "unit": "W"
                 },
-                "ϕ": {
-                    "expression": ["asin(Q/S)","acos(P/S)","asin(Q/sqrt(3)*U*I)"],
+                "φ": {
+                    "expression": ["asin(Q/S)*180/pi","acos(P/S)*180/pi","asin(Q/sqrt(3)*U*I)"],
                     "description": "Phasenwinkel Drehstrom",
                     "unit": "W"
                 }
@@ -224,7 +227,7 @@
                     "unit": "Ω"
                 }
             },
-            "Stern in Dreieck": {
+            "Stern in Dreieck / Dreieck in Stern": {
                 "R10": {
                     "expression": ["R12*R13/(R12+R13+R23)"],
                     "description": "Widerstand",
@@ -242,9 +245,7 @@
                     "description": "Widerstand",
                     "adddescription": '<img src="images/sterndreieck.svg" width="300" height="150">',
                     "unit": "Ω"
-                }
-            },
-            "Dreieck in Stern": {
+                },
                 "R12": {
                     "expression": ["R10*R20/R30+R10+R20"],
                     "description": "Widerstand",
@@ -418,22 +419,47 @@
                 }
             }, 
             "Leitungsberechnung AC": {
+                "U": {
+                    "expression": ["( 2*P*l ) / ( ΔU*γ*A )","(ΔU/Δu)*100"],
+                    "description": "Betriebsspannung",
+                    "unit": "V"
+                },
                 "ΔU": {
-                    "expression": ["( 2*I*l * cos(0.5) ) / (γ*A)"],
+                    "expression": ["( 2*I*l * cos(φ*pi/180) ) / (γ*A)","(Δu*U)/100"],
                     "description": "Spannungsfall",
                     "unit": "V"
                 },
-                "I": {
+                "Δu": {
+                    "expression": ["ΔU/U*100"],
+                    "description": "Spannungsfall in %",
+                    "unit": "%"
+                },
+                "P": {
                     "expression": [],
+                    "description": "Zu Übertragende Leistung",
+                    "unit": "V"
+                },
+                "Pv": {
+                    "expression": ["( 2*I^2*l ) / (γ*A)","Pvp*P/100"],
+                    "description": "Leistungsverlust",
+                    "unit": "V"
+                },
+                "Pvp": {
+                    "expression": ["( 2*I*l*100 ) / (γ*A*U*cos(φ*pi/180))","Pv/P*100"],
+                    "description": "Leistungsverlust in %",
+                    "unit": "%"
+                },
+                "I": {
+                    "expression": ["(ΔU*γ*A) / ( 2*l * cos(φ*pi/180) )","sqrt(Pv*γ*A / 2*l)","Pvp*γ*A*U*cos(φ*pi/180) / 2*l*100"],
                     "description": "Leiterstrom",
                     "unit": "A"
                 },
                 "l": {
-                    "expression": [],
+                    "expression": ["( ΔU*γ*A ) / (2*I * cos(φ*pi/180) )","( ΔU*γ*A*U ) / (2*P)","Pvp*γ*A*U*cos(φ*pi/180) / 2*I*100"],
                     "description": "Leiterlänge",
                     "unit": "m"
                 },
-                "ϕ": {
+                "φ": {
                     "expression": [],
                     "description": "Phasenverschiebungswinkel",
                     "unit": "°"
@@ -452,9 +478,80 @@
                     "tablecolumn2": "Spezifischer_Widerstand"
                 },
                 "A": {
-                    "expression": [],
+                    "expression": ["( 2*I*l*100 ) / ( Pvp*γ*U*cos(φ*pi/180) )","( 2*P*l ) / ( ΔU*γ*U )","(( 2*I^2*l )/(Pv*γ))"],
                     "description": "Leiterquerschnitt",
                     "unit": "mm²"
+                }
+            }, 
+            "Drehstrom Nullleiter Strom": {
+                "I1": {
+                    "expression": [],
+                    "description": "Strom L1",
+                    "unit": "A"
+                },
+                "I2": {
+                    "expression": [],
+                    "description": "Strom L2",
+                    "unit": "A"
+                },
+                "I3": {
+                    "expression": [],
+                    "description": "Strom L3",
+                    "unit": "A"
+                },
+                "I21": {
+                    "expression": [],
+                    "description": "Ind/Kap/Ohm",
+                    "unit": "",
+                    "table": induktivkapazitiv,
+                    "tablecolumn1": "Bezeichnung",
+                    "tablecolumn2": "Winkel"
+                },
+                "I22": {
+                    "expression": [],
+                    "description": "Ind/Kap/Ohm",
+                    "unit": "",
+                    "table": induktivkapazitiv,
+                    "tablecolumn1": "Bezeichnung",
+                    "tablecolumn2": "Winkel"
+                },
+                "I23": {
+                    "expression": [],
+                    "description": "Ind/Kap/Ohm",
+                    "unit": "",
+                    "table": induktivkapazitiv,
+                    "tablecolumn1": "Bezeichnung",
+                    "tablecolumn2": "Winkel"
+                },
+                "φ1": {
+                    "expression": ["acos(cφ1)"],
+                    "description": "L1 Phasenverschiebung Winkel",
+                    "unit": "°"
+                },
+                "φ2": {
+                    "expression": ["acos(cφ2)"],
+                    "description": "L2 Phasenverschiebung Winkel",
+                    "unit": "°"
+                },
+                "φ3": {
+                     "expression": ["acos(cφ3)"],
+                    "description": "L3 Phasenverschiebung Winkel",
+                    "unit": "°"
+                },
+                "cφ1": {
+                    "expression": ["cos(φ1)"],
+                    "description": "L1 Wirkfaktor",
+                    "unit": ""
+                },
+                "cφ2": {
+                    "expression": ["cos(φ2)"],
+                    "description": "L2 Wirkfaktor",
+                    "unit": ""
+                },
+                "cφ3": {
+                     "expression": ["cos(φ3)"],
+                    "description": "L3 Wirkfaktor",
+                    "unit": ""
                 }
             }
         };

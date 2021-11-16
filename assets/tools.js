@@ -6,11 +6,30 @@ function getAll() {
 	var inputElements = document.getElementsByTagName("input");
 	for (let i = 0; i < inputElements.length; i++) {
 		// get element and write it to a global var
-		console.log(inputElements[i].id, inputElements[i].value);
+		// console.log(inputElements[i].id, inputElements[i].value);
 		if (inputElements[i].value != "") {
 			window[inputElements[i].id] = inputElements[i].value.replace(",", ".");
 		} else {
 			window[inputElements[i].id] = null;
+		}
+	}
+}
+
+//
+// Source Tag: Input
+// get input and set vars
+function getAllInput() {
+	//const myElement = document.getElementById('io');
+	var inputElements = document.getElementsByTagName("input");
+	for (let i = 0; i < inputElements.length; i++) {
+		// get element and write it to a global var
+		// console.log(inputElements[i].id, inputElements[i].value);
+		if (inputElements[i].value != "") {
+			inputElements[i].id = inputElements[i].value.replace(",", ".");
+			return inputElements
+		} else {
+			inputElements[i].id = null;
+			return inputElements
 		}
 	}
 }
@@ -201,3 +220,67 @@ function setValueFromSelect(id,targetid) {
 	const element = document.getElementById(targetid);
 	element.value=id.value;
 }
+
+// Convert from degrees to radians.
+Math.rad = function(degrees) {
+	return degrees * Math.PI / 180;
+}
+
+// Convert from radians to degrees.
+Math.deg = function(radians) {
+	return radians * 180 / Math.PI;
+}
+
+// Convert from degrees to radians.
+math.rad = function(degrees) {
+	return degrees * Math.PI / 180;
+}
+
+// Convert from radians to degrees.
+math.deg = function(radians) {
+	return radians * 180 / Math.PI;
+}
+
+// Usage: 
+    //drawLineWithArrows(50, 50, 150, 50, 5, 8, true, true);
+
+    // x0,y0: the line's starting point
+    // x1,y1: the line's ending point
+    // width: the distance the arrowhead perpendicularly extends away from the line
+    // height: the distance the arrowhead extends backward from the endpoint
+    // arrowStart: true/false directing to draw arrowhead at the line's starting point
+    // arrowEnd: true/false directing to draw arrowhead at the line's ending point
+
+    function drawLineWithArrows(ctx ,x0, y0, x1, y1, aWidth, aLength, arrowStart, arrowEnd, label="") {
+        var dx = x1 - x0;
+        var dy = y1 - y0;
+        var angle = Math.atan2(dy, dx);
+        var length = Math.sqrt(dx * dx + dy * dy);
+        //
+        ctx.translate(x0, y0);
+        ctx.rotate(angle);
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(length, 0);
+        if (arrowStart) {
+            ctx.moveTo(aLength, -aWidth);
+            ctx.lineTo(0, 0);
+            ctx.lineTo(aLength, aWidth);
+        }
+        if (arrowEnd) {
+            ctx.moveTo(length - aLength, -aWidth);
+            ctx.lineTo(length, 0);
+            ctx.lineTo(length - aLength, aWidth);
+        }
+        
+
+        ctx.stroke();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+		ctx.lineWidth = 1;
+		ctx.font = "20px monospace";
+		ctx.strokeText(label, (x0+x1)/2, (y0+y1)/2);
+
+		//ctx.fillText(label, (x0+x1)/2, (y0+y1)/2);
+		ctx.stroke();
+    }
