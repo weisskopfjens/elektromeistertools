@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>Umwandlung CSV - Obj</title>
+
+    <link href="assets/fontawesome/css/all.min.css" rel="stylesheet">
+    <script src="assets/jquery/jquery.js"></script>
+    <script src="assets/math.min.js"></script>
+    <script src="assets/mathjax/tex-svg.js"></script>
+    <link href="assets/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="assets/PapaParse/papaparse.js"></script>
+
+</head>
+
+<body>
+    <input type="file" name="File Upload" id="txtFileUpload" accept=".csv" /><br>
+
+    <textarea id="result"></textarea><br>
+
+    <button id="btn" onclick="copyToClickBoard()">Copy</button><br>
+
+
+    <script>
+        if (window.File && window.FileReader &&
+            window.FileList && window.Blob) {
+            // Dateiverarbeitung 
+        } else {
+            alert('Dieser Browser unterstützt den Zugriff auf lokale Dateien nicht');
+        }
+
+        document.getElementById('txtFileUpload').addEventListener('change', upload, false);
+
+        function upload(evt) {
+
+            var data = null;
+            var file = evt.target.files[0];
+            var reader = new FileReader();
+            reader.readAsText(file);
+            reader.onload = function (event) {
+                var csvData = event.target.result;
+
+                var data = Papa.parse(csvData, {
+                    delimiter: "", // auto-detect
+                    newline: "", // auto-detect
+                    quoteChar: '"',
+                    escapeChar: '"',
+                    header: false,
+                    transformHeader: undefined,
+                    dynamicTyping: false,
+                    preview: 0,
+                    encoding: "",
+                    worker: false,
+                    comments: false,
+                    step: undefined,
+                    complete: displayHTMLJson,
+                    error: undefined,
+                    download: false,
+                    downloadRequestHeaders: undefined,
+                    downloadRequestBody: undefined,
+                    skipEmptyLines: false,
+                    chunk: undefined,
+                    chunkSize: undefined,
+                    fastMode: undefined,
+                    beforeFirstChunk: undefined,
+                    withCredentials: undefined,
+                    transform: undefined,
+                    delimitersToGuess: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
+                });
+
+                console.log(data);
+
+            };
+
+            reader.onerror = function () {
+                alert('Unable to read ' + file.fileName);
+            };
+
+        }
+
+        function displayHTMLJson(results) {
+            document.getElementById("result").innerHTML = JSON.stringify(results);
+        }
+
+        function displayHTMLTable(results) {
+            var table = "<table class='table'>";
+            var data = results.data;
+
+            for (i = 0; i < data.length; i++) {
+                table += "<tr>";
+                var row = data[i];
+                var cells = row.join(",").split(",");
+
+                for (j = 0; j < cells.length; j++) {
+                    table += "<td>";
+                    table += cells[j];
+                    table += "</th>";
+                }
+                table += "</tr>";
+            }
+            table += "</table>";
+            $("#result").html(table);
+        }
+
+        function copyToClickBoard() {
+            var content = document.getElementById('result').innerHTML;
+
+            navigator.clipboard.writeText(content)
+                .then(() => {
+                    console.log("Text copied to clipboard...")
+                })
+                .catch(err => {
+                    console.log('Something went wrong', err);
+                })
+
+        }
+    </script>
+
+</body>
+
+

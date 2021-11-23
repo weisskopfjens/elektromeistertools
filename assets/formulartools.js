@@ -204,11 +204,11 @@ function inputFormatter(value, row, index) {
 }
 
 function doCalculation() {
-    console.log("Calculate")
+    //console.log("Calculate")
     TableInputToVariables();
     calculateFormulars("result", formulas);
     VariablesToTableInput();
-    console.log(globalCalcScopes)
+    //console.log(globalCalcScopes)
 }
 
 // Set bootstrap table value
@@ -227,9 +227,8 @@ function normalizeCategory(category) {
     return output;
 }
 
-function calculateFormulars(resultid, formulas) {
-    //const result = document.getElementById(resultid);
-    //result.innerHTML = '';
+function calculateFormulars(resultid, formulas,changed="") {
+    var v;
     for (var categoryname in formulas) {
         for (var sign in formulas[categoryname]) {
             // jump over description
@@ -239,12 +238,11 @@ function calculateFormulars(resultid, formulas) {
             if (globalCalcScopes[normalizeCategory(categoryname)] != undefined) {
                 if (globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)] != undefined) {
                     v = globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)]
-                    if (v != "") {
+                    if (v != "" ) {
                         continue;
                     }
                 }
             }
-
             obj = formulas[categoryname][sign];
             let parenthesis = 'keep'
             let implicit = 'hide'
@@ -253,10 +251,9 @@ function calculateFormulars(resultid, formulas) {
                     node = math.parse(encVarname(expr), globalCalcScopes[normalizeCategory(categoryname)]);
                     globalCalcScopes[normalizeCategory(categoryname)][encVarname(sign)] = math.format(node.compile().evaluate(globalCalcScopes[normalizeCategory(categoryname)]));
                 } catch (err) {
-
+                    console.log(err)
                     continue;
                 }
-
                 try {
                     const latex = node ? node.toTex({
                         parenthesis: parenthesis,
@@ -270,7 +267,6 @@ function calculateFormulars(resultid, formulas) {
                         .description +
                         ']<br><hr>'
                 } catch (err) {}
-
             }
         }
     }
@@ -293,7 +289,7 @@ function TableInputToVariables() {
         }
         globalCalcScopes[normalizeCategory(row.category)][encVarname(row.sign)] = row.input;
     }
-    console.log("T2V", globalCalcScopes);
+    //console.log("T2V", globalCalcScopes);
 }
 
 function VariablesToTableInput() {
@@ -321,7 +317,7 @@ function VariablesToTableInput() {
         });
         i++;
     }
-    console.log("V2T", globalCalcScopes);
+    //console.log("V2T", globalCalcScopes);
 }
 
 function ResetForm() {
@@ -359,82 +355,3 @@ function decVarname(input) {
     return input;
 }
 
-// ##################################################################
-//
-// Add config for angle format to mathjs
-//
-// ##################################################################
-
-// our extended configuration options
-const config = {
-    angles: 'deg' // 'rad', 'deg', 'grad'
-}
-
-function AddAngleConfig() {
-
-    let replacements = {}
- 
-    // create trigonometric functions replacing the input depending on angle config
-    const fns1 = ['sin', 'cos', 'tan', 'sec', 'cot', 'csc']
-    fns1.forEach(function (name) {
-        const fn = math[name] // the original function
-
-        const fnNumber = function (x) {
-            // convert from configured type of angles to radians
-            switch (config.angles) {
-                case 'deg':
-                    return fn(x / 360 * 2 * Math.PI)
-                case 'grad':
-                    return fn(x / 400 * 2 * Math.PI)
-                default:
-                    return fn(x)
-            }
-        }
-
-        // create a typed-function which check the input types
-        replacements[name] = math.typed(name, {
-            'number': fnNumber,
-            'Array | Matrix': function (x) {
-                return math.map(x, fnNumber)
-            }
-        })
-    })
-
-    // create trigonometric functions replacing the output depending on angle config
-    const fns2 = ['asin', 'acos', 'atan', 'atan2', 'acot', 'acsc', 'asec']
-    fns2.forEach(function (name) {
-        const fn = math[name] // the original function
-
-        const fnNumber = function (x) {
-            const result = fn(x)
-
-            if (typeof result === 'number') {
-                // convert to radians to configured type of angles
-                switch (config.angles) {
-                    case 'deg':
-                        return result / 2 / Math.PI * 360
-                    case 'grad':
-                        return result / 2 / Math.PI * 400
-                    default:
-                        return result
-                }
-            }
-
-            return result
-        }
-
-        // create a typed-function which check the input types
-        replacements[name] = math.typed(name, {
-            'number': fnNumber,
-            'Array | Matrix': function (x) {
-                return math.map(x, fnNumber)
-            }
-        })
-    })
-
-    // import all replacements into math.js, override existing trigonometric functions
-    math.import(replacements, {
-        override: true
-    })
-
-}

@@ -128,7 +128,7 @@
                     "unit": "W"
                 },
                 "φ": {
-                    "expression": ["asin(Q/S)*180/pi","acos(P/S)*180/pi","asin(Q/sqrt(3)*U*I)"],
+                    "expression": ["asin(Q/S)","acos(P/S)","asin(Q/sqrt(3)*U*I)"],
                     "description": "Phasenwinkel Drehstrom",
                     "unit": "W"
                 }
@@ -425,7 +425,7 @@
                     "unit": "V"
                 },
                 "ΔU": {
-                    "expression": ["( 2*I*l * cos(φ*pi/180) ) / (γ*A)","(Δu*U)/100"],
+                    "expression": ["( 2*I*l * cos(φ) ) / (γ*A)","(Δu*U)/100"],
                     "description": "Spannungsfall",
                     "unit": "V"
                 },
@@ -445,17 +445,17 @@
                     "unit": "V"
                 },
                 "Pvp": {
-                    "expression": ["( 2*I*l*100 ) / (γ*A*U*cos(φ*pi/180))","Pv/P*100"],
+                    "expression": ["( 2*I*l*100 ) / (γ*A*U*cos(φ))","Pv/P*100"],
                     "description": "Leistungsverlust in %",
                     "unit": "%"
                 },
                 "I": {
-                    "expression": ["(ΔU*γ*A) / ( 2*l * cos(φ*pi/180) )","sqrt(Pv*γ*A / 2*l)","Pvp*γ*A*U*cos(φ*pi/180) / 2*l*100"],
+                    "expression": ["(ΔU*γ*A) / ( 2*l * cos(φ) )","sqrt(Pv*γ*A / 2*l)","Pvp*γ*A*U*cos(φ) / 2*l*100"],
                     "description": "Leiterstrom",
                     "unit": "A"
                 },
                 "l": {
-                    "expression": ["( ΔU*γ*A ) / (2*I * cos(φ*pi/180) )","( ΔU*γ*A*U ) / (2*P)","Pvp*γ*A*U*cos(φ*pi/180) / 2*I*100"],
+                    "expression": ["( ΔU*γ*A ) / (2*I * cos(φ) )","( ΔU*γ*A*U ) / (2*P)","Pvp*γ*A*U*cos(φ) / 2*I*100"],
                     "description": "Leiterlänge",
                     "unit": "m"
                 },
@@ -478,7 +478,7 @@
                     "tablecolumn2": "Spezifischer_Widerstand"
                 },
                 "A": {
-                    "expression": ["( 2*I*l*100 ) / ( Pvp*γ*U*cos(φ*pi/180) )","( 2*P*l ) / ( ΔU*γ*U )","(( 2*I^2*l )/(Pv*γ))"],
+                    "expression": ["( 2*I*l*100 ) / ( Pvp*γ*U*cos(φ) )","( 2*P*l ) / ( ΔU*γ*U )","(( 2*I^2*l )/(Pv*γ))"],
                     "description": "Leiterquerschnitt",
                     "unit": "mm²"
                 }

@@ -14,8 +14,6 @@
     <link href="assets/bootstrap_table/bootstrap-table.css" rel="stylesheet">
     <script src="assets/bootstrap_table/bootstrap-table.js"></script>
     <script src="assets/tools.js"></script>
-    <script src="assets/formulartools.js"></script>
-    <script src="assets/tabellen.js"></script>
 
 </head>
 
@@ -24,95 +22,126 @@
         <form>
             <div class="mb-3 row">
                 <div class="col-sm-1">
+                    <label for="L1typ" class="form-label">Typ</label>
                     <select class="form-select" id="L1typ">
-                        <option selected value="0">Ohmisch</option>
-                        <option value="-1">Kapazitiv</option>
-                        <option value="1">Induktiv</option>
+                        <option disabled selected value>Wählen</option>
+                        <option value="0.0000">Ohmisch</option>
+                        <option value="-1.0000">Kapazitiv</option>
+                        <option value="1.0000">Induktiv</option>
                     </select>
                 </div>
-                <label for="L1cosphi" class="col-sm-1 col-form-label">L1 cos(φ)</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L1cosphi" value="1">
+                    <label for="L1cφ" class="form-label">L1 cos(φ)</label>
+                    <input type="text" class="form-control" id="L1cφ">
                 </div>
-                <label for="L1phi" class="col-sm-1 col-form-label">L1 Winkel φ</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L1phi" value="0">
+                    <label for="L1φ" class="form-label">L1 Winkel φ</label>
+                    <input type="text" class="form-control" id="L1φ">
                 </div>
-                <label for="L1Wirkstrom" class="col-sm-1 col-form-label">L1 Wirkstrom</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L1Wirkstrom">
+                    <label for="L1Iw" class="form-label">L1 Wirkstrom</label>
+                    <input type="text" class="form-control" id="L1Iw">
                 </div>
-                <label for="L1Blindstrom" class="col-sm-1 col-form-label">L1 Blindstrom</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L1Blindstrom">
+                    <label for="L1Ib" class="form-label">L1 Blindstrom</label>
+                    <input type="text" class="form-control" id="L1Ib">
                 </div>
-                <label for="L1Scheinstrom" class="col-sm-1 col-form-label">L1 Scheinstrom</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L1Scheinstrom">
+                    <label for="L1Is" class="form-label">L1 Scheinstrom</label>
+                    <input type="text" class="form-control" id="L1Is">
+                </div>
+                <div class="col-sm-1">
+                    <label for="L1X" class="form-label">X</label>
+                    <input type="text" class="form-control" id="L1X" readonly>
+                </div>
+                <div class="col-sm-1">
+                    <label for="L1Y" class="form-label">Y</label>
+                    <input type="text" class="form-control" id="L1Y" readonly>
                 </div>
             </div>
             <hr>
             <div class="mb-3 row">
                 <div class="col-sm-1">
+                    <label for="L2typ" class="form-label">Typ</label>
                     <select class="form-select" id="L2typ">
-                        <option selected value="0">Ohmisch</option>
-                        <option value="-1">Kapazitiv</option>
-                        <option value="1">Induktiv</option>
+                        <option disabled selected value>Wählen</option>
+                        <option value="0.0000">Ohmisch</option>
+                        <option value="-1.0000">Kapazitiv</option>
+                        <option value="1.0000">Induktiv</option>
                     </select>
                 </div>
-                <label for="L2cosphi" class="col-sm-1 col-form-label">L2 cos(φ)</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L2cosphi" value="1">
+                    <label for="L2cφ" class="form-label">L2 cos(φ)</label>
+                    <input type="text" class="form-control" id="L2cφ">
                 </div>
-                <label for="L2phi" class="col-sm-1 col-form-label">L2 Winkel φ</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L2phi" value="0">
+                    <label for="L2φ" class="form-label">L2 Winkel φ</label>
+                    <input type="text" class="form-control" id="L2φ">
                 </div>
-                <label for="L2Wirkstrom" class="col-sm-1 col-form-label">L2 Wirkstrom</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L2Wirkstrom">
+                    <label for="L2Iw" class="form-label">L2 Wirkstrom</label>
+                    <input type="text" class="form-control" id="L2Iw">
                 </div>
-                <label for="L2Blindstrom" class="col-sm-1 col-form-label">L2 Blindstrom</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L2Blindstrom">
+                    <label for="L2Ib" class="form-label">L2 Blindstrom</label>
+                    <input type="text" class="form-control" id="L2Ib">
                 </div>
-                <label for="L2Scheinstrom" class="col-sm-1 col-form-label">L2 Scheinstrom</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L2Scheinstrom">
+                    <label for="L2Is" class="form-label">L2 Scheinstrom</label>
+                    <input type="text" class="form-control" id="L2Is">
+                </div>
+                <div class="col-sm-1">
+                    <label for="L2X" class="form-label">X</label>
+                    <input type="text" class="form-control" id="L2X" readonly>
+                </div>
+                <div class="col-sm-1">
+                    <label for="L2Y" class="form-label">Y</label>
+                    <input type="text" class="form-control" id="L2Y" readonly>
                 </div>
             </div>
             <hr>
             <div class="mb-3 row">
                 <div class="col-sm-1">
+                    <label for="L3typ" class="form-label">Typ</label>
                     <select class="form-select" id="L3typ">
-                        <option selected value="0">Ohmisch</option>
-                        <option value="-1">Kapazitiv</option>
-                        <option value="1">Induktiv</option>
+                        <option disabled selected value>Wählen</option>
+                        <option value="0.0000">Ohmisch</option>
+                        <option value="-1.0000">Kapazitiv</option>
+                        <option value="1.0000">Induktiv</option>
                     </select>
                 </div>
-                <label for="L3cosphi" class="col-sm-1 col-form-label">L3 cos(φ)</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L3cosphi" value="1">
+                    <label for="L3cφ" class="form-label">L3 cos(φ)</label>
+                    <input type="text" class="form-control" id="L3cφ">
                 </div>
-                <label for="L3phi" class="col-sm-1 col-form-label">L3 Winkel φ</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L3phi" value="0">
+                    <label for="L3φ" class="form-label">L3 Winkel φ</label>
+                    <input type="text" class="form-control" id="L3φ">
                 </div>
-                <label for="L3Wirkstrom" class="col-sm-1 col-form-label">I3 Wirkstrom</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L3Wirkstrom">
+                    <label for="L3Iw" class="form-label">I3 Wirkstrom</label>
+                    <input type="text" class="form-control" id="L3Iw">
                 </div>
-                <label for="L3Blindstrom" class="col-sm-1 col-form-label">L3 Blindstrom</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L3Blindstrom">
+                    <label for="L3Ib" class="form-label">L3 Blindstrom</label>
+                    <input type="text" class="form-control" id="L3Ib">
                 </div>
-                <label for="L3Scheinstrom" class="col-sm-1 col-form-label">L3 Scheinstrom</label>
                 <div class="col-sm-1">
-                    <input type="text" class="form-control" id="L3Scheinstrom">
+                    <label for="L3Is" class="form-label">L3 Scheinstrom</label>
+                    <input type="text" class="form-control" id="L3Is">
+                </div>
+                <div class="col-sm-1">
+                    <label for="L3X" class="form-label">X</label>
+                    <input type="text" class="form-control" id="L3X" readonly>
+                </div>
+                <div class="col-sm-1">
+                    <label for="L3Y" class="form-label">Y</label>
+                    <input type="text" class="form-control" id="L3Y" readonly>
                 </div>
             </div>
         </form>
-        <button type="button" class="btn btn-secondary" onclick="$('form').get(0).reset();Draw();">Zurücksetzen</button>
+        <button type="button" class="btn btn-secondary"
+            onclick="ResetInput('Drehstrom N Leiter');Draw();">Zurücksetzen</button>
         <div class="alert alert-primary" role="alert" id="result">
         </div>
 
@@ -121,174 +150,47 @@
 </body>
 
 <script type="application/javascript">
-    for (let i = 1; i < 4; i++) {
-        $("#L" + i + "cosphi").change(function () {
-            var oa = GetValuesFromInput(i)
-            var o = CalculateAll("cosphi",oa.Iw,oa.Ib,oa.Is,oa.phi,oa.cosphi,oa.typ)
-            SetInputFromValue(i,o)
-            Draw()
-        });
+    delete math.Unit;
+    AddAngleConfig();
 
-        $("#L" + i + "phi").change(function () {
-            var oa = GetValuesFromInput(i)
-            var o = CalculateAll("phi",oa.Iw,oa.Ib,oa.Is,oa.phi,oa.cosphi,oa.typ)
-            SetInputFromValue(i,o)
-            Draw()
-        });
+    $("input").change(function () {
+        c = LoadInput2GlobalScope("Drehstrom N Leiter");
+        console.log("changed:", c)
+        calculateFormulars("result", formulas, c);
+        LoadGlobalScope2Input("Drehstrom N Leiter");
+        Draw();
+    });
 
-        $("#L" + i + "Scheinstrom").change(function () {
-            var oa = GetValuesFromInput(i)
-            var o = CalculateAll("Is",oa.Iw,oa.Ib,oa.Is,oa.phi,oa.cosphi,oa.typ)
-            SetInputFromValue(i,o)
-            Draw()
-        });
-
-        $("#L" + i + "Wirkstrom").change(function () {
-            var oa = GetValuesFromInput(i)
-            var o = CalculateAll("Iw",oa.Iw,oa.Ib,oa.Is,oa.phi,oa.cosphi,oa.typ)
-            SetInputFromValue(i,o)
-            Draw()
-        });
-
-        $("#L" + i + "Blindstrom").change(function () {
-            var oa = GetValuesFromInput(i)
-            var o = CalculateAll("Ib",oa.Iw,oa.Ib,oa.Is,oa.phi,oa.cosphi,oa.typ)
-            SetInputFromValue(i,o)
-            Draw()
-        });
-
-        $("#L" + i + "typ").change(function () {
-            var oa = GetValuesFromInput(i)
-            var o = CalculateAll("typ",oa.Iw,oa.Ib,oa.Is,oa.phi,oa.cosphi,oa.typ)
-            SetInputFromValue(i,o)
-            Draw()
-        });
-
-    }
+    $("select").change(function () {
+        c = LoadInput2GlobalScope("Drehstrom N Leiter");
+        console.log(c)
+        calculateFormulars("result", formulas,c);
+        LoadGlobalScope2Input("Drehstrom N Leiter");
+        Draw();
+    });
 
 
     $(document).ready(function () {
-          Draw()
+        //Draw()
     });
-
-    function GetValuesFromInput(i) {
-        var o={}
-        o.typ = $("#L" + i + "typ").val()
-        o.cosphi = $("#L" + i + "cosphi").val()
-        o.phi = $("#L" + i + "phi").val()
-        o.Iw = $("#L" + i + "Wirkstrom").val()
-        o.Ib = $("#L" + i + "Blindstrom").val()
-        o.Is = $("#L" + i + "Scheinstrom").val()
-        return o
-    }
-
-    function SetInputFromValue(i,o) {
-        //$("#L" + i + "typ").val(o.typ)
-        if(o.cosphi!=="") {
-            $("#L" + i + "cosphi").val(o.cosphi)
-        }
-        if(o.phi!=="") {
-            $("#L" + i + "phi").val(o.phi)
-        }
-        if(o.Iw!=="") {
-            $("#L" + i + "Wirkstrom").val(o.Iw)
-        }
-        if(o.Ib!=="") {
-            $("#L" + i + "Blindstrom").val(o.Ib)
-        }
-        if(o.Is!=="") {
-            $("#L" + i + "Scheinstrom").val(o.Is)
-        }
-    }
-
-    function CalculateAll(changed,Iw,Ib,Is,phi,cosphi,typ) {
-        var v = {}
-
-        v.Iw = ""
-        v.Ib = ""
-        v.Is = ""
-        v.phi = ""
-        v.cosphi = ""
-        v.typ = ""
-
-        if(changed=="typ") {
-            v.typ = parseFloat(typ.replace(",", "."))
-            if( v.typ == 0 ) {
-                cosphi = "1"
-                changed = "cosphi"
-            }
-        }
-
-        if(cosphi!="" && changed=="cosphi") {
-            cosphi1 = parseFloat(cosphi.replace(",", "."))
-            v.phi = Math.deg(Math.acos(cosphi1))
-        }
-
-        if(phi!="" && changed=="phi") {
-            phi1 = parseFloat(phi.replace(",", "."))
-            v.cosphi = Math.cos(Math.rad(phi1))
-        }
-
-        if(Is!="" && Iw!="" && ( changed=="Is" || changed=="Iw" ) ) {
-            Is1 = parseFloat(Is.replace(",", "."))
-            Iw1 = parseFloat(Iw.replace(",", "."))
-            v.Ib = Math.sqrt(Is1 ** 2 - Iw1 ** 2)
-        }
-
-        if(Is!="" && Ib!="" && ( changed=="Is" || changed=="Ib" ) ) {
-            Is1 = parseFloat(Is.replace(",", "."))
-            Ib1 = parseFloat(Ib.replace(",", "."))
-            v.Iw = Math.sqrt(Is1 ** 2 - Ib1 ** 2)
-        }
-
-        if(Ib!="" && Iw!="" && ( changed=="Ib" || changed=="Iw" ) ) {
-            Iw1 = parseFloat(Iw.replace(",", "."))
-            Ib1 = parseFloat(Ib.replace(",", "."))
-            console.log("d1")
-            v.Is = Math.sqrt(Iw1 ** 2 + Ib1 ** 2)
-        }else if(phi!="" && Iw!="" && ( changed=="cosphi" || changed=="phi" || changed=="Iw" ) ) {
-            Iw1 = parseFloat(Iw.replace(",", "."))
-            phi1 = parseFloat(phi.replace(",", "."))
-            console.log("d2")
-            v.Is = Iw1 / Math.cos(Math.rad(phi1))
-        }else if(phi!="" && Ib!="" && ( changed=="cosphi" ||changed=="phi" || changed=="Ib" ) ) {
-            Ib1 = parseFloat(Ib.replace(",", "."))
-            phi1 = parseFloat(phi.replace(",", "."))
-            console.log("d3")
-            v.Is = Ib1 / Math.sin(Math.rad(phi1))
-        }
-
-        return v
-    }
-  
-    function NaNorEmpty(v) {
-        if(isNaN(v) || v==="" || v==="NaN") {
-            return true
-        } else {
-            return false
-        }
-    }
 
     function Draw() {
         var Is = []
-        var phi = []
+        var phcategorynamei = []
         var ready = true
-        for (let i = 1; i < 4; i++) {
-            // if(parseFloat($("#L" + i + "typ").val())==0) {
-            $("#L" + i + "phi").prop("disabled", !Math.abs(parseFloat($("#L" + i + "typ").val())));
-            $("#L" + i + "cosphi").prop("disabled", !Math.abs(parseFloat($("#L" + i + "typ").val())));
-            $("#L" + i + "Blindstrom").prop("disabled", !Math.abs(parseFloat($("#L" + i + "typ").val())));
-           
-            Is[i] = parseFloat($("#L" + i + "Scheinstrom").val().replace(",", "."))
-            phi[i] = parseFloat($("#L" + i + "phi").val().replace(",", ".")) * parseFloat($("#L" + i + "typ").val())
-            if (NaNorEmpty(Is[i]) || ( Math.abs(parseFloat($("#L" + i + "typ").val())) && NaNorEmpty(phi[i]))) {
-                ready = false
-            }
-        }
+        categoryname="Drehstrom N Leiter"
+        L1Is = parseFloat(globalCalcScopes[normalizeCategory(categoryname)]["L1Is"]);
+        L2Is = parseFloat(globalCalcScopes[normalizeCategory(categoryname)]["L2Is"]);
+        L3Is = parseFloat(globalCalcScopes[normalizeCategory(categoryname)]["L3Is"]);
+        L1φ = parseFloat(globalCalcScopes[normalizeCategory(categoryname)]["L1φ"]);
+        L2φ = parseFloat(globalCalcScopes[normalizeCategory(categoryname)]["L2φ"]);
+        L3φ = parseFloat(globalCalcScopes[normalizeCategory(categoryname)]["L3φ"]);
 
-        if( ready==true ) {
-            NCurrenDiagram(Is[1], phi[1], Is[2], phi[2], Is[3], phi[3])
-            var N = CalcNCurrent(Is[1], phi[1], Is[2], phi[2], Is[3], phi[3]).toFixed(4)
+
+
+        if (ready == true) {
+            NCurrenDiagram(L1Is, L1φ, L2Is, L2φ, L3Is, L3φ)
+            var N = CalcNCurrent(L1Is, L1φ, L2Is, L2φ, L3Is, L3φ).toFixed(4)
             $("#result").text("In = " + N + " A")
         } else {
             var canvas = document.getElementById("canvas");
@@ -298,18 +200,18 @@
             }
             $("#result").text("In = ? A")
         }
-        
-        
+
+
     }
 
     function CalcNCurrent(I1, I1Phi, I2, I2Phi, I3, I3Phi) {
         var phi = 0.0
-        var L1x = (I1 * math.sin(Math.rad(phi + 0 + I1Phi)))
-        var L1y = (I1 * math.cos(Math.rad(phi + 0 + I1Phi)))
-        var L2x = (I2 * math.sin(Math.rad(phi + 120 + I2Phi)))
-        var L2y = (I2 * math.cos(Math.rad(phi + 120 + I2Phi)))
-        var L3x = (I3 * math.sin(Math.rad(phi + 240 + I3Phi)))
-        var L3y = (I3 * math.cos(Math.rad(phi + 240 + I3Phi)))
+        var L1x = (I1 * math.sin(phi + 0 + I1Phi))
+        var L1y = (I1 * math.cos(phi + 0 + I1Phi))
+        var L2x = (I2 * math.sin(phi + 120 + I2Phi))
+        var L2y = (I2 * math.cos(phi + 120 + I2Phi))
+        var L3x = (I3 * math.sin(phi + 240 + I3Phi))
+        var L3y = (I3 * math.cos(phi + 240 + I3Phi))
         Lx = L1x + L2x + L3x
         Ly = L1y + L2y + L3y
         var N = Math.sqrt(Lx ** 2 + Ly ** 2)
@@ -319,29 +221,42 @@
     function NCurrenDiagram(I1, I1Phi, I2, I2Phi, I3, I3Phi) {
         var canvas = document.getElementById("canvas");
         if (canvas.getContext) {
-
+            console.log(I1, I1Phi, I2, I2Phi, I3, I3Phi)
+            if(isNaN(I1)) {
+                I1=0.0;
+            }
+            if(isNaN(I1Phi)) {
+                I1Phi=0.0;
+            }
+            if(isNaN(I2)) {
+                I2=0.0;
+            }
+            if(isNaN(I2Phi)) {
+                I2Phi=0.0;
+            }
+            if(isNaN(I3)) {
+                I3=0.0;
+            }
+            if(isNaN(I3Phi)) {
+                I3Phi=0.0;
+            }
             var ctx = canvas.getContext("2d");
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
             var l = 300
             var phi = 0
-
             Imax = Math.max(I1, I2, I3)
             l1 = l / Imax * I1
             l2 = l / Imax * I2
             l3 = l / Imax * I3
-
             var mx = canvas.width / 2
             var my = canvas.height / 2
-
-            var L1x = (mx + l1 * math.sin(Math.rad(phi + 0 + I1Phi)) * -1)
-            var L1y = (my + l1 * math.cos(Math.rad(phi + 0 + I1Phi)) * -1)
-            var L2x = (mx + l2 * math.sin(Math.rad(phi + 120 + I2Phi)) * -1)
-            var L2y = (my + l2 * math.cos(Math.rad(phi + 120 + I2Phi)) * -1)
-            var L3x = (mx + l3 * math.sin(Math.rad(phi + 240 + I3Phi)) * -1)
-            var L3y = (my + l3 * math.cos(Math.rad(phi + 240 + I3Phi)) * -1)
+            var L1x = (mx + l1 * math.sin(phi + 0 + I1Phi))
+            var L1y = (my + l1 * math.cos(phi + 0 + I1Phi) * -1)
+            var L2x = (mx + l2 * math.sin(phi + 120 + I2Phi))
+            var L2y = (my + l2 * math.cos(phi + 120 + I2Phi) * -1)
+            var L3x = (mx + l3 * math.sin(phi + 240 + I3Phi))
+            var L3y = (my + l3 * math.cos(phi + 240 + I3Phi) * -1)
             console.log(L1x, L1y, mx, my)
-
             // Draw coordnate cross
             ctx.beginPath();
             ctx.strokeStyle = 'rgb(0, 0, 0)'
@@ -378,6 +293,290 @@
             drawLineWithArrows(ctx, L1x + L2x + L3x - mx * 2, L1y + L2y + L3y - my * 2, mx, my, 5, 8, false, true,
                 "I Nullleiter");
             ctx.stroke();
+        }
+    }
+
+    var globalCalcScopes = {}
+
+    function calculateFormulars(resultid, formulas, changed = "") {
+        var v;
+        for (var categoryname in formulas) {
+            for (var sign in formulas[categoryname]) {
+                // jump over description
+                if (sign === 'description') {
+                    continue;
+                }
+                obj = formulas[categoryname][sign];
+                if (obj.trigger != undefined) {
+                    try {
+                        console.log(obj.trigger, globalCalcScopes[normalizeCategory(categoryname)])
+                        node = math.parse(obj.trigger, globalCalcScopes[normalizeCategory(categoryname)]);
+                        node.compile().evaluate(globalCalcScopes[normalizeCategory(categoryname)]);
+                        console.log(globalCalcScopes[normalizeCategory(categoryname)]["L1φ"])
+                    } catch (err) {
+                        console.log(err)
+                        continue;
+                    }
+                }
+                if (globalCalcScopes[normalizeCategory(categoryname)] != undefined) {
+                    if (globalCalcScopes[normalizeCategory(categoryname)][sign] != undefined) {
+                        v = globalCalcScopes[normalizeCategory(categoryname)][sign]
+                        if (v != "" && !isNaN(v)) {
+                            continue;
+                        }
+                    }
+                }
+
+                let parenthesis = 'keep'
+                let implicit = 'hide'
+                for (let expr of obj.expression) {
+                    try {
+                        node = math.parse(expr, globalCalcScopes[normalizeCategory(categoryname)]);
+                        globalCalcScopes[normalizeCategory(categoryname)][sign] = math.format(node.compile()
+                            .evaluate(globalCalcScopes[normalizeCategory(categoryname)]));
+                    } catch (err) {
+                        //console.log(err)
+                        continue;
+                    }
+                    try {
+                        const latex = node ? node.toTex({
+                            parenthesis: parenthesis,
+                            implicit: implicit
+                        }) : ''
+                        MathJax.typesetClear();
+                        result.innerHTML += sign + " = ";
+                        result.appendChild(mj(latex));
+                        result.innerHTML += " = " + globalCalcScopes[normalizeCategory(categoryname)][
+                            sign] + formulas[categoryname][sign]["unit"] + " [" + formulas[
+                                categoryname][sign]
+                            .description +
+                            ']<br><hr>'
+                    } catch (err) {}
+                }
+            }
+        }
+    }
+
+    function LoadInput2GlobalScope(category) {
+        var inputs = document.getElementsByTagName("input");
+        var selects = document.getElementsByTagName('select');
+        var changed = []
+
+        for (var i = 0; i < inputs.length; i++) {
+            v = parseFloat(inputs[i].value.replace(",", "."))
+            v = v.toFixed(4)
+            if (globalCalcScopes[normalizeCategory(category)] == undefined) {
+                globalCalcScopes[normalizeCategory(category)] = {}
+            }
+            if (globalCalcScopes[normalizeCategory(category)][inputs[i].id] == undefined) {
+                globalCalcScopes[normalizeCategory(category)][inputs[i].id] = {}
+            }
+            if (!isNaN(v)) {
+                vo = parseFloat(globalCalcScopes[normalizeCategory(category)][inputs[i].id]).toFixed(4)
+                if (v != vo) {
+                    console.log("changed from", vo, " to ", v)
+                    changed.push(inputs[i].id)
+                    globalCalcScopes[normalizeCategory(category)][inputs[i].id] = v
+                    inputs[i].disabled = true;
+                }
+            } else {
+                //globalCalcScopes[normalizeCategory(category)][inputs[i].id] = ""
+            }
+        }
+        for (var i = 0; i < selects.length; i++) {
+            v = parseFloat(selects[i].value.replace(",", "."))
+            v = v.toFixed(4)
+            if (globalCalcScopes[normalizeCategory(category)] == undefined) {
+                globalCalcScopes[normalizeCategory(category)] = {}
+            }
+            if (globalCalcScopes[normalizeCategory(category)][selects[i].id] == undefined) {
+                globalCalcScopes[normalizeCategory(category)][selects[i].id] = {}
+            }
+            if (!isNaN(v)) {
+                vo = parseFloat(globalCalcScopes[normalizeCategory(category)][selects[i].id]).toFixed(4)
+                if (v != vo) {
+                    console.log("changed from", vo, " to ", v)
+                    changed.push(selects[i].id)
+                    globalCalcScopes[normalizeCategory(category)][selects[i].id] = v
+                    selects[i].disabled = true;
+                }
+            } else {
+                //globalCalcScopes[normalizeCategory(category)][selects[i].id] = ""
+            }
+        }
+        console.log(globalCalcScopes[normalizeCategory(category)])
+        return changed
+    }
+
+    function LoadGlobalScope2Input(category) {
+        var inputs = document.getElementsByTagName("input");
+        var selects = document.getElementsByTagName('select');
+        var vars = {};
+        for (var i = 0; i < inputs.length; i++) {
+            v = parseFloat(globalCalcScopes[normalizeCategory(category)][inputs[i].id])
+            v = v.toFixed(4)
+            console.log(v,inputs[i].id)
+            if (!isNaN(v)) {
+                inputs[i].value = v
+                inputs[i].disabled = true;
+            }
+
+        }
+        for (var i = 0; i < selects.length; i++) {
+            v = parseFloat(globalCalcScopes[normalizeCategory(category)][selects[i].id])
+            v = v.toFixed(4)
+            console.log(v,selects[i].id)
+            if (!isNaN(v)) {
+                selects[i].value = v
+                selects[i].disabled = true;
+            }
+
+        }
+    }
+
+    function ResetInput(category) {
+        var inputs = document.getElementsByTagName("input");
+        var selects = document.getElementsByTagName('select');
+        var vars = {};
+        k = Object.keys(globalCalcScopes[normalizeCategory(category)])
+        for (let i of k) {
+            e = document.getElementById(i)
+            e.value = ""
+            e.disabled = false;
+            delete globalCalcScopes[normalizeCategory(category)][i];
+        }
+    }
+
+    function normalizeCategory(category) {
+        output = category.replaceAll(" ", "");
+        return output;
+    }
+
+    let formulas = {
+        "Drehstrom N Leiter": {
+            "L1typ": {
+                "expression": ["(number(L1φ<0)*-1)+(number(L1φ>0)*1)"],
+                "trigger": "L1φ=abs(L1φ)*number(L1typ);L1cφ=cos(L1φ)",
+                "description": "L1 Scheinstrom",
+                "unit": "A"
+            },
+            "L1Is": {
+                "expression": ["sqrt(L1Iw^2+L1Ib^2)", "L1Ib/sin(L1φ)", "L1Iw/cos(L1φ)"],
+                "description": "L1 Scheinstrom",
+                "unit": "A"
+            },
+            "L1Ib": {
+                "expression": ["sqrt(L1Is^2-L1Iw^2)", "L1Is*sin(L1φ)"],
+                "description": "L1 Blindstrom",
+                "unit": "A"
+            },
+            "L1Iw": {
+                "expression": ["sqrt(L1Is^2-L1Ib^2)", "L1Is*cos(L1φ)"],
+                "description": "L1 Wirkstrom",
+                "unit": "A"
+            },
+            "L1φ": {
+                "expression": ["acos(L1cφ)", "asin(L1Ib/L1Is)", "atan(L1Ib/L1Iw)"],
+                "description": "L1 Winkel phi",
+                "unit": "°"
+            },
+            "L1cφ": {
+                "expression": ["cos(L1φ)", "L1Iw/L1Is"],
+                "description": "L1 Cos Phi",
+                "unit": ""
+            },
+            "L1X": {
+                "expression": ["cos(L1φ)*L1Is"],
+                "description": "X",
+                "unit": ""
+            },
+            "L1Y": {
+                "expression": ["sin(L1φ)*L1Is"],
+                "description": "Y",
+                "unit": ""
+            },
+            "L2typ": {
+                "expression": ["(number(L2φ<0)*-1)+(number(L2φ>0)*1)"],
+                "trigger": "L2φ=abs(L2φ)*number(L2typ);L2cφ=cos(L2φ)",
+                "description": "L2 Scheinstrom",
+                "unit": "A"
+            },
+            "L2Is": {
+                "expression": ["sqrt(L2Iw^2+L2Ib^2)", "L2Ib/sin(L2φ)", "L2Iw/cos(L2φ)"],
+                "description": "L2 Scheinstrom",
+                "unit": "A"
+            },
+            "L2Ib": {
+                "expression": ["sqrt(L2Is^2-L2Iw^2)", "L2Is*sin(L2φ)"],
+                "description": "L2 Blindstrom",
+                "unit": "A"
+            },
+            "L2Iw": {
+                "expression": ["sqrt(L2Is^2-L2Ib^2)", "L2Is*cos(L2φ)"],
+                "description": "L2 Wirkstrom",
+                "unit": "A"
+            },
+            "L2φ": {
+                "expression": ["acos(L2cφ)", "asin(L2Ib/L2Is)", "atan(L2Ib/L2Iw)"],
+                "description": "L2 Winkel phi",
+                "unit": "°"
+            },
+            "L2cφ": {
+                "expression": ["cos(L2φ)", "L2Iw/L2Is"],
+                "description": "L2 Cos Phi",
+                "unit": ""
+            },
+            "L2X": {
+                "expression": ["cos(L2φ)*L2Is"],
+                "description": "X",
+                "unit": ""
+            },
+            "L2Y": {
+                "expression": ["sin(L2φ)*L2Is"],
+                "description": "Y",
+                "unit": ""
+            },
+            "L3typ": {
+                "expression": ["(number(L3φ<0)*-1)+(number(L3φ>0)*1)"],
+                "trigger": "L3φ=abs(L3φ)*number(L3typ);L3cφ=cos(L3φ)",
+                "description": "L3 Scheinstrom",
+                "unit": "A"
+            },
+            "L3Is": {
+                "expression": ["sqrt(L3Iw^2+L3Ib^2)", "L3Ib/sin(L3φ)", "L3Iw/cos(L3φ)"],
+                "description": "L3 Scheinstrom",
+                "unit": "A"
+            },
+            "L3Ib": {
+                "expression": ["sqrt(L3Is^2-L3Iw^2)", "L3Is*sin(L3φ)"],
+                "description": "L3 Blindstrom",
+                "unit": "A"
+            },
+            "L3Iw": {
+                "expression": ["sqrt(L3Is^2-L3Ib^2)", "L3Is*cos(L3φ)"],
+                "description": "L3 Wirkstrom",
+                "unit": "A"
+            },
+            "L3φ": {
+                "expression": ["acos(L3cφ)", "asin(L3Ib/L3Is)", "atan(L3Ib/L3Iw)"],
+                "description": "L3 Winkel phi",
+                "unit": "°"
+            },
+            "L3cφ": {
+                "expression": ["cos(L3φ)", "L3Iw/L3Is"],
+                "description": "L3 Cos Phi",
+                "unit": ""
+            },
+            "L3X": {
+                "expression": ["cos(L3φ)*L3Is"],
+                "description": "X",
+                "unit": ""
+            },
+            "L3Y": {
+                "expression": ["sin(L3φ)*L3Is"],
+                "description": "Y",
+                "unit": ""
+            }
         }
     }
 </script>

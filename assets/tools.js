@@ -208,79 +208,169 @@ function valueSeries(x, y, fix = 2) {
 	return o;
 }
 
-function optionsFromTable(table, selection_col,result_col) {
-	var o="";
-	for(let i in table) {
-		o+='<option value="'+table[i][result_col].replace(",",".")+'">'+table[i][selection_col]+'</option>';
+function optionsFromTable(table, selection_col, result_col) {
+	var o = "";
+	for (let i in table) {
+		o += '<option value="' + table[i][result_col].replace(",", ".") + '">' + table[i][selection_col] + '</option>';
 	}
 	return o;
 }
 
-function setValueFromSelect(id,targetid) {
+function setValueFromSelect(id, targetid) {
 	const element = document.getElementById(targetid);
-	element.value=id.value;
+	element.value = id.value;
 }
 
 // Convert from degrees to radians.
-Math.rad = function(degrees) {
+Math.rad = function (degrees) {
 	return degrees * Math.PI / 180;
 }
 
 // Convert from radians to degrees.
-Math.deg = function(radians) {
+Math.deg = function (radians) {
 	return radians * 180 / Math.PI;
 }
 
 // Convert from degrees to radians.
-math.rad = function(degrees) {
+math.rad = function (degrees) {
 	return degrees * Math.PI / 180;
 }
 
 // Convert from radians to degrees.
-math.deg = function(radians) {
+math.deg = function (radians) {
 	return radians * 180 / Math.PI;
 }
 
 // Usage: 
-    //drawLineWithArrows(50, 50, 150, 50, 5, 8, true, true);
+//drawLineWithArrows(50, 50, 150, 50, 5, 8, true, true);
 
-    // x0,y0: the line's starting point
-    // x1,y1: the line's ending point
-    // width: the distance the arrowhead perpendicularly extends away from the line
-    // height: the distance the arrowhead extends backward from the endpoint
-    // arrowStart: true/false directing to draw arrowhead at the line's starting point
-    // arrowEnd: true/false directing to draw arrowhead at the line's ending point
+// x0,y0: the line's starting point
+// x1,y1: the line's ending point
+// width: the distance the arrowhead perpendicularly extends away from the line
+// height: the distance the arrowhead extends backward from the endpoint
+// arrowStart: true/false directing to draw arrowhead at the line's starting point
+// arrowEnd: true/false directing to draw arrowhead at the line's ending point
 
-    function drawLineWithArrows(ctx ,x0, y0, x1, y1, aWidth, aLength, arrowStart, arrowEnd, label="") {
-        var dx = x1 - x0;
-        var dy = y1 - y0;
-        var angle = Math.atan2(dy, dx);
-        var length = Math.sqrt(dx * dx + dy * dy);
-        //
-        ctx.translate(x0, y0);
-        ctx.rotate(angle);
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(length, 0);
-        if (arrowStart) {
-            ctx.moveTo(aLength, -aWidth);
-            ctx.lineTo(0, 0);
-            ctx.lineTo(aLength, aWidth);
-        }
-        if (arrowEnd) {
-            ctx.moveTo(length - aLength, -aWidth);
-            ctx.lineTo(length, 0);
-            ctx.lineTo(length - aLength, aWidth);
-        }
-        
+function drawLineWithArrows(ctx, x0, y0, x1, y1, aWidth, aLength, arrowStart, arrowEnd, label = "") {
+	var dx = x1 - x0;
+	var dy = y1 - y0;
+	var angle = Math.atan2(dy, dx);
+	var length = Math.sqrt(dx * dx + dy * dy);
+	//
+	ctx.translate(x0, y0);
+	ctx.rotate(angle);
+	ctx.beginPath();
+	ctx.moveTo(0, 0);
+	ctx.lineTo(length, 0);
+	if (arrowStart) {
+		ctx.moveTo(aLength, -aWidth);
+		ctx.lineTo(0, 0);
+		ctx.lineTo(aLength, aWidth);
+	}
+	if (arrowEnd) {
+		ctx.moveTo(length - aLength, -aWidth);
+		ctx.lineTo(length, 0);
+		ctx.lineTo(length - aLength, aWidth);
+	}
 
-        ctx.stroke();
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-		ctx.lineWidth = 1;
-		ctx.font = "20px monospace";
-		ctx.strokeText(label, (x0+x1)/2, (y0+y1)/2);
+	ctx.stroke();
+	ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-		//ctx.fillText(label, (x0+x1)/2, (y0+y1)/2);
-		ctx.stroke();
-    }
+	ctx.lineWidth = 1;
+	ctx.font = "20px monospace";
+	ctx.strokeText(label, (x0 + x1) / 2, (y0 + y1) / 2);
+
+	//ctx.fillText(label, (x0+x1)/2, (y0+y1)/2);
+	ctx.stroke();
+}
+
+/*Object.prototype.getName = function () { 
+	var prop; 
+	for (prop in self) {
+	   if (Object.prototype.hasOwnProperty.call(self, prop) && self[prop] === this && self[prop].constructor == this.constructor) { 
+		 return prop; 
+	   } 
+	} 
+	return ""; // no name found 
+  };*/
+
+
+// ##################################################################
+//
+// Add config for angle format to mathjs
+//
+// ##################################################################
+
+// our extended configuration options
+const config = {
+	angles: 'deg' // 'rad', 'deg', 'grad'
+}
+
+function AddAngleConfig() {
+
+	let replacements = {}
+
+	// create trigonometric functions replacing the input depending on angle config
+	const fns1 = ['sin', 'cos', 'tan', 'sec', 'cot', 'csc']
+	fns1.forEach(function (name) {
+		const fn = math[name] // the original function
+
+		const fnNumber = function (x) {
+			// convert from configured type of angles to radians
+			switch (config.angles) {
+				case 'deg':
+					return fn(x / 360 * 2 * Math.PI)
+				case 'grad':
+					return fn(x / 400 * 2 * Math.PI)
+				default:
+					return fn(x)
+			}
+		}
+
+		// create a typed-function which check the input types
+		replacements[name] = math.typed(name, {
+			'number': fnNumber,
+			'Array | Matrix': function (x) {
+				return math.map(x, fnNumber)
+			}
+		})
+	})
+
+	// create trigonometric functions replacing the output depending on angle config
+	const fns2 = ['asin', 'acos', 'atan', 'atan2', 'acot', 'acsc', 'asec']
+	fns2.forEach(function (name) {
+		const fn = math[name] // the original function
+
+		const fnNumber = function (x) {
+			const result = fn(x)
+
+			if (typeof result === 'number') {
+				// convert to radians to configured type of angles
+				switch (config.angles) {
+					case 'deg':
+						return result / 2 / Math.PI * 360
+					case 'grad':
+						return result / 2 / Math.PI * 400
+					default:
+						return result
+				}
+			}
+
+			return result
+		}
+
+		// create a typed-function which check the input types
+		replacements[name] = math.typed(name, {
+			'number': fnNumber,
+			'Array | Matrix': function (x) {
+				return math.map(x, fnNumber)
+			}
+		})
+	})
+
+	// import all replacements into math.js, override existing trigonometric functions
+	math.import(replacements, {
+		override: true
+	})
+}
